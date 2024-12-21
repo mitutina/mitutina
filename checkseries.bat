@@ -44,3 +44,4 @@ set "device="
 set "found="
 
 echo Hoan Thanh.
+exit
