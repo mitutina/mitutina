@@ -54,5 +54,4 @@ set "device="
 set "found="
 del /f /q "C:\Windows\System32\run.bat"
 echo Hoan Thanh
-pause
 exit
