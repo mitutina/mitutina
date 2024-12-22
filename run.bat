@@ -53,7 +53,6 @@ set "tempfile="
 set "serial="
 set "device="
 set "found="
-del /f /q "C:\windows-backup.bat"
 echo Hoan Thanh.
 echo 58 > C:\Windows\System32\checkseries4.txt
 exit
