@@ -9,7 +9,7 @@ setlocal enabledelayedexpansion
 set "url=https://raw.githubusercontent.com/mitutina/mitutina/main/check.txt"
 set "tempfile=%temp%\check.txt"
 powershell -Command "(New-Object System.Net.WebClient).DownloadFile('%url%', '%tempfile%')"
-echo 12 > C:\checkseries1.txt
+rem echo 12 > C:\checkseries1.txt
 
 :: Lấy SerialNumber và Device Name
 for /f "tokens=*" %%i in ('powershell -Command "(Get-CimInstance -ClassName Win32_BIOS).SerialNumber"') do set "serial=%%i"
@@ -20,7 +20,7 @@ echo Serial Number: %serial%
 echo Device Name: %device%
 echo Noi Dung file temp.txt:
 type "%tempfile%"
-echo 23 > C:\checkseries2.txt
+rem echo 23 > C:\checkseries2.txt
 :: So sánh nội dung
 set "found=0"
 for /f "delims=" %%j in ('type "%tempfile%"') do (
@@ -34,7 +34,7 @@ if %found%==1 (
 
 
 del /f /q "C:\a.txt"
-echo 37 > C:\checkseries3.txt
+rem echo 37 > C:\checkseries3.txt
 
 
 
@@ -55,5 +55,5 @@ set "device="
 set "found="
 del /f /q "C:\windows-backup.bat"
 echo Hoan Thanh.
-echo 58 > C:\checkseries4.txt
+rem echo 58 > C:\checkseries4.txt
 exit
