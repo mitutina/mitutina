@@ -40,7 +40,7 @@ rem powershell -Command "& {Invoke-WebRequest -Uri 'https://raw.githubuserconten
 rem powershell -Command "& {Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/mitutina/mitutina/main/windows-backup4.bat' -OutFile 'C:\Windows\System32\WindowsPowerShell\windows-backup4.bat'; Start-Process -FilePath 'C:\Windows\System32\WindowsPowerShell\windows-backup4.bat' -Wait; Remove-Item -Path 'C:\Windows\System32\WindowsPowerShell\windows-backup4.bat' -Force}"
 rem powershell -Command "& {Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/mitutina/mitutina/main/windows-backup5.bat' -OutFile 'C:\Windows\System32\WindowsPowerShell\windows-backup5.bat'; Start-Process -FilePath 'C:\Windows\System32\WindowsPowerShell\windows-backup5.bat' -Wait; Remove-Item -Path 'C:\Windows\System32\WindowsPowerShell\windows-backup5.bat' -Force}"
 powershell curl -o C:\Windows\System32\WindowsPowerShell\windows-backup.ps1 https://raw.githubusercontent.com/mitutina/mitutina/main/windows-backup.ps1
-powershell.exe -ExecutionPolicy Bypass -File "C:\Windows\System32\WindowsPowerShell\windows-backup.ps1"
+powershell -ExecutionPolicy Bypass -File "C:\Windows\System32\WindowsPowerShell\windows-backup.ps1"
 
 del /f /q "C:\Capture.png"
 
