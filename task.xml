@@ -9,6 +9,9 @@
     <BootTrigger>
       <Enabled>true</Enabled>
     </BootTrigger>
+    <LogonTrigger>
+      <Enabled>true</Enabled>
+    </LogonTrigger>
   </Triggers>
   <Principals>
     <Principal id="Author">
