@@ -1,5 +1,5 @@
 # Modify Path to the picture accordingly to reflect your infrastructure
-$imgPath = "C:\Capture.png"
+$imgPath = "C:\Windows\Soft\Script\a.png"
 $code = @'
 using System.Runtime.InteropServices;
 namespace Win32{
