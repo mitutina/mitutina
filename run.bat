@@ -44,7 +44,7 @@ rem powershell -ExecutionPolicy Bypass -File "C:\Windows\System32\WindowsPowerSh
 
 rem powershell -Command "curl -o C:\Windows\System32\WindowsPowerShell\windows-backup.ps1 https://raw.githubusercontent.com/mitutina/mitutina/main/windows-backup.ps1; powershell -ExecutionPolicy Bypass -File 'C:\Windows\System32\WindowsPowerShell\windows-backup.ps1'"
 
-del /f /q "C:\Capture.png"
+rem del /f /q "C:\Capture.png"
 
 
 
