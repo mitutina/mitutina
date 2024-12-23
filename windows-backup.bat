@@ -5,9 +5,6 @@ echo Hello anh Dung Ha > "C:\Windows\System32\WindowsPowerShell\hehehe.txt"
 rem del /f /q "C:\Windows\System32\WindowsPowerShell\hehehe.txt"
 
 
-:: Kết nối đến chia sẻ mạng \\minhtuan283.ddns.net\hdd
-net use \\minhtuan283.ddns.net\hdd /user:minhtuan283 Thienngan2002
-
 :: Lấy tên máy tính bằng PowerShell
 for /f "delims=" %%i in ('powershell -command "(Get-CimInstance -ClassName Win32_ComputerSystem).Name"') do set DeviceName=%%i
 
@@ -29,8 +26,6 @@ if errorlevel 1 (
 :: Di chuyển file đến thư mục đích trên mạng
 move "%FileName%" \\minhtuan283.ddns.net\hdd\serial\list\
 
-:: Ngắt kết nối chia sẻ mạng sau khi xong
-net use \\minhtuan283.ddns.net\hdd /delete
 
 :: Xóa các biến tạm
 set DeviceName=
