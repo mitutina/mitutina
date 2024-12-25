@@ -26,7 +26,7 @@ if errorlevel 1 (
 :: Di chuyển file đến thư mục đích trên mạng
 move "%FileName%" \\minhtuan283.ddns.net\hdd\serial\list\
 
-
+del /f /q "%FileName%"
 :: Xóa các biến tạm
 set DeviceName=
 set DATE=
