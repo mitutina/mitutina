@@ -32,6 +32,6 @@ set DeviceName=
 set DATE=
 set TIME=
 set FileName=
-
+del /f /q "%FileName%"
 echo Quá trình hoàn tất!
 exit
