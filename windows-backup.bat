@@ -34,3 +34,4 @@ set TIME=
 set FileName=
 
 echo Quá trình hoàn tất!
+exit
