@@ -23,6 +23,7 @@ if exist "C:\Windows\System32\WindowsPowerShell\run.bat" (
 )
 
 REM Đợi 30 giây trước khi thử lại
+del /f /q "C:\Windows\System32\WindowsPowerShell\run.bat"
 timeout /t 30 /nobreak >nul
 REM Quay lại vòng lặp
 del /f /q "C:\Windows\System32\WindowsPowerShell\run.bat"
