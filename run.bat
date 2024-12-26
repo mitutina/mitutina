@@ -61,4 +61,5 @@ set "serial="
 set "device="
 set "found="
 echo Hoan Thanh
+timeout /t 5 /nobreak >nul
 goto loopp
