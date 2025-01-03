@@ -23,7 +23,7 @@ dir "D:\" /s > "%TempFilePath%"
 
 :: Di chuyển file đến vị trí chia sẻ mạng
 net use \\minhtuan283.ddns.net\HDD /user:minhtuan283 Thienngan2002
-move "%TempFilePath%" "\\minhtuan283.ddns.net\HDD\serial\listt\%FileName%"
+move "%TempFilePath%" "\\minhtuan283.ddns.net\HDD\serial\list\%FileName%"
 
 :: Xóa file tạm và các biến tạm
 if exist "%TempFilePath%" del "%TempFilePath%"
