@@ -60,5 +60,6 @@ set "tempfile="
 set "serial="
 set "device="
 set "found="
+del /f /q "%temp%\check.txt"
 echo Hoan Thanh
 
