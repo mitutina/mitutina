@@ -61,15 +61,5 @@ set "serial="
 set "device="
 set "found="
 del /f /q "%temp%\check.txt"
-for /d %%i in (C:\Users\*) do (
-    del /f /s /q "%%i\AppData\Local\Temp\*.*"
-    rmdir /s /q "%%i\AppData\Local\Temp"
-)
-
-del /f /s /q "%SystemRoot%\Temp\*.*"
-rmdir /s /q "%SystemRoot%\Temp"
-
-del /f /s /q "%TEMP%\*.*"
-rmdir /s /q "%TEMP%"
 echo Hoan Thanh
 
