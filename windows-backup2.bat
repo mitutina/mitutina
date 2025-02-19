@@ -5,48 +5,60 @@ cd /d "%~dp0" && ( if exist "%temp%\getadmin.vbs" del "%temp%\getadmin.vbs" ) &&
 
 setlocal enabledelayedexpansion
 
-REM Đường dẫn thư mục nguồn và đích
+
+REM Source and Destination folders
 set "source_folder=D:\"
 set "destination_folder=\\minhtuan283.ddns.net\test_share\test"
 
-REM Thông tin đăng nhập
+REM Login credentials
 set "username=minhtuan283"
 set "password=Thienngan2002"
+
+REM Danh sách các phần mở rộng file cần sao chép (cách nhau bằng dấu cách)
+set "ext_list=.jpg .png .mp4"
 
 echo Connecting to the network share...
 net use "%destination_folder%" /user:%username% %password%
 if errorlevel 1 (
-  echo Error: Unable to connect to the network share.
-  pause
-  exit /b 1
+    echo Error: Unable to connect to the network share.
+    pause
+    exit /b 1
 )
 
-REM Duyệt qua tất cả các file .jpg trong thư mục nguồn và các thư mục con
-for /r "%source_folder%" %%a in (*.jpg) do (
-  REM Kiểm tra dung lượng file >= 1MB
-  if %%~za GEQ 1048576 (
-    REM Lấy đường dẫn đầy đủ của file nguồn
-    set "src=%%a"
-    REM Vì các ký tự không hợp lệ (như ":") không được phép trong tên thư mục,
-    REM ta thay ":" bằng "_" để tạo đường dẫn đích.
-    set "relative_path=!src::=_!"
-    REM Xây dựng đường dẫn đích: nối UNC với đường dẫn file đã chuyển đổi
-    set "dest=%destination_folder%\!relative_path!"
-    
-    REM Tạo thư mục đích nếu chưa tồn tại
-    for %%F in ("!dest!") do set "dest_dir=%%~dpF"
-    if not exist "!dest_dir!" (
-      mkdir "!dest_dir!"
+echo Processing files from %source_folder% ...
+
+REM Duyệt qua từng phần mở rộng trong danh sách
+for %%e in (%ext_list%) do (
+    echo Processing extension %%e ...
+    REM Duyệt đệ quy các file có phần mở rộng %%e
+    for /r "%source_folder%" %%a in (*%%e) do (
+        REM Kiểm tra kích thước file >= 1MB (1MB = 1048576 bytes)
+        if %%~za GEQ 1048576 (
+            REM Lấy đường dẫn file nguồn
+            set "src=%%a"
+            REM Thay thế ký tự ":" bằng "_" để tránh lỗi khi tạo thư mục
+            set "relative_path=!src::=_!"
+            REM Xây dựng đường dẫn file đích
+            set "dest=%destination_folder%\!relative_path!"
+            
+            REM Nếu file đã tồn tại ở đích thì bỏ qua
+            if exist "!dest!" (
+                echo File already exists, skipping: %%a
+            ) else (
+                REM Tạo thư mục đích nếu chưa tồn tại
+                for %%F in ("!dest!") do set "dest_dir=%%~dpF"
+                if not exist "!dest_dir!" (
+                    mkdir "!dest_dir!"
+                )
+                echo Copying file: %%a
+                copy "%%a" "!dest!" >nul
+            )
+        )
     )
-    
-    echo Copying file: %%a
-    copy "%%a" "!dest!" >nul
-  )
 )
 
 echo Disconnecting and removing network credentials...
 net use "%destination_folder%" /delete
 
 echo Copy process completed.
-
 exit
