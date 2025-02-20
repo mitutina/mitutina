@@ -21,7 +21,6 @@ echo Connecting to the network share...
 net use "%destination_folder%" /user:%username% %password%
 if errorlevel 1 (
     echo Error: Unable to connect to the network share.
-    pause
     exit /b 1
 )
 
