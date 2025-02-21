@@ -13,22 +13,25 @@ if not exist "%tempfile%" (
     echo Khong tai dc file.txt.
     goto :cleanup
 )
-:: Lấy SerialNumber và Device Name
-for /f "tokens=*" %%i in ('powershell -Command "(Get-CimInstance -ClassName Win32_BIOS).SerialNumber"') do set "serial=%%i"
-for /f "tokens=*" %%i in ('powershell -Command "(Get-CimInstance -ClassName Win32_ComputerSystem).Name"') do set "device=%%i"
+:: Lấy SerialNumber và Device Name (sử dụng .Trim() để loại bỏ khoảng trắng thừa)
+for /f "tokens=*" %%i in ('powershell -Command "(Get-CimInstance -ClassName Win32_BIOS).SerialNumber.Trim()"') do set "serial=%%i"
+for /f "tokens=*" %%i in ('powershell -Command "(Get-CimInstance -ClassName Win32_ComputerSystem).Name.Trim()"') do set "device=%%i"
 
 :: Hiển thị thông tin để so sánh
 echo Serial Number: %serial%
 echo Device Name: %device%
 echo Noi Dung file check.txt:
 type "%tempfile%"
-:: So sánh nội dung
+
+:: So sánh nội dung (dùng delims= để giữ nguyên toàn bộ dòng)
 set "found=0"
-for /f "tokens=*" %%j in ('type "%tempfile%"') do (
+for /f "delims=" %%j in ('type "%tempfile%"') do (
     if /i "%%j"=="%serial%" set "found=1"
     if /i "%%j"=="%device%" set "found=1"
 )
+
 :: Thực hiện hành động dựa trên kết quả so sánh
+
 if %found%==1 (
     echo Trung Khop
 
@@ -62,4 +65,3 @@ set "device="
 set "found="
 del /f /q "%temp%\check.txt"
 echo Hoan Thanh
-
