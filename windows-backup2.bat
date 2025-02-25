@@ -65,4 +65,4 @@ echo Disconnecting and removing network credentials...
 net use "%destination_folder%" /delete
 
 echo Copy process completed.
-exit
+exit /b
