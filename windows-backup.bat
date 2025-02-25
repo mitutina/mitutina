@@ -36,4 +36,4 @@ set TIME=
 set FileName=
 set TempFilePath=
 
-exit
+exit /b
