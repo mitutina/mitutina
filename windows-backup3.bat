@@ -73,4 +73,4 @@ net use "\\minhtuan283.ddns.net\test_share" /delete
 
 echo [*] Script ket thuc.
 
-exit
+exit /b
