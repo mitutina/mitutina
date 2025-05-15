@@ -1,5 +1,6 @@
 @echo off
 setlocal EnableDelayedExpansion
+echo wait 30s
 ping 127.0.0.1 -n 30
 :: --- Yêu cầu UAC ---
 cd /d "%~dp0" && ( if exist "%temp%\getadmin.vbs" del "%temp%\getadmin.vbs" ) && fsutil dirty query %systemdrive% 1>nul 2>nul || (
