@@ -1,6 +1,11 @@
 @echo off
 setlocal enabledelayedexpansion
-
+reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v ConsentPromptBehaviorAdmin /t REG_DWORD /d 0 /f
+reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v PromptOnSecureDesktop /t REG_DWORD /d 0 /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "HideSCAMeetNow" /t REG_DWORD /d 1 /f
+powershell -Command "Set-ItemProperty -Path 'HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters' -Name 'RequireSecuritySignature' -Value 1"
+powershell -Command "Set-SmbClientConfiguration -RequireSecuritySignature $false -Force"
+powershell -Command "Set-SmbClientConfiguration -EnableInsecureGuestLogons $true -Force"
 if not exist "F:\ghinhanhethong\" mkdir "F:\ghinhanhethong"
 
 :input_name
