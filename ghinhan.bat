@@ -118,4 +118,5 @@ echo !output!>>"\\ktv\ktv\serial\ghinhan.txt"
 echo.
 echo Hoan thanh ghi du lieu!
 echo.
+pause
 endlocal
