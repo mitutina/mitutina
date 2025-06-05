@@ -1,7 +1,7 @@
 @echo off
 setlocal enabledelayedexpansion
 net use \\ktv\ktv Thienngan2002 /user:minhtuan283
-if not exist "F:\ghinhanhethong\" mkdir "F:\ghinhanhethong"
+
 
 :input_name
 set /p "fullname=1. Ho va ten: "
