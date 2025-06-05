@@ -114,5 +114,4 @@ echo.
 echo Hoan thanh ghi du lieu!
 pause
 echo.
-net use \\ktv\ktv /delete
 endlocal
