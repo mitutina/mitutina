@@ -2,7 +2,6 @@
 setlocal enabledelayedexpansion
 net use \\ktv\ktv Thienngan2002 /user:minhtuan283
 
-
 :input_name
 set /p "fullname=1. Ho va ten: "
 if "!fullname!"=="" goto input_name
@@ -46,57 +45,75 @@ if errorlevel 1 (
 set /p "note=4. Ghi chu: "
 if "!note!"=="" set "note=Khong co"
 
-:input_tech
-echo 5. Chon ky thuat xu ly (khong khoang cach, VD: abe):
-echo   A. winfree   B. ram   C. ssd   D. win   E. vs
-set /p "tech_input=Nhap lua chon: "
-set "tech_input=!tech_input: =!"
-set "tech_input=!tech_input:a=A!"
-set "tech_input=!tech_input:b=B!"
-set "tech_input=!tech_input:c=C!"
-set "tech_input=!tech_input:d=D!"
-set "tech_input=!tech_input:e=E!"
+:: Dinh nghia cac ky thuat xu ly
+set "tech_A=winfree"
+set "tech_B=ram"
+set "tech_C=ssd"
+set "tech_D=win"
+set "tech_E=vs"
+set "tech_F=psu"
 
-if "!tech_input!"=="" goto input_tech
+:menu
+cls
+echo Chon mot hoac nhieu ky thuat xu ly (vi du: ABE):
+echo.
+echo   A. winfree
+echo   B. ram
+echo   C. ssd
+echo   D. win
+echo   E. vs
+echo   F. psu
+echo.
 
 set "tech_result="
-set "choices="
+set "user_choice="
+set /p "user_choice=Nhap lua chon cua ban va an Enter: "
 
-for /l %%i in (0,1,31) do (
-    set "char=!tech_input:~%%i,1!"
-    if "!char!"=="" goto :check_tech_result
-    
-    set "valid_char=0"
-    if "!char!"=="A" set "tech=winfree" & set "valid_char=1"
-    if "!char!"=="B" set "tech=ram" & set "valid_char=1"
-    if "!char!"=="C" set "tech=ssd" & set "valid_char=1"
-    if "!char!"=="D" set "tech=win" & set "valid_char=1"
-    if "!char!"=="E" set "tech=vs" & set "valid_char=1"
-    
-    if !valid_char! equ 0 (
-        if not "!char!"=="" (
-            echo Ky tu khong hop le: !char!
-            goto input_tech
-        )
-    ) else (
-        echo !choices! | find "!char!" > nul
-        if errorlevel 1 (
-            if "!tech_result!"=="" (
-                set "tech_result=!tech!"
-            ) else (
-                set "tech_result=!tech_result!+!tech!"
+:: Kiem tra va xu ly lua chon
+if not defined user_choice (
+    echo Lua chon khong hop le. Vui long thu lai.
+    timeout /t 2 >nul
+    goto menu
+)
+
+set "temp_choice=%user_choice%"
+set "processed_chars="
+set "final_result="
+
+:process_loop
+if not "!temp_choice!"=="" (
+    set "char=!temp_choice:~0,1!"
+    set "temp_choice=!temp_choice:~1!"
+
+    REM Kiem tra xem ky tu da duoc xu ly chua
+    echo "!processed_chars!" | find /i "!char!" >nul
+    if errorlevel 1 (
+        set "processed_chars=!processed_chars!!char!"
+        for %%T in (A B C D E F) do (
+            if /i "!char!"=="%%T" (
+                if defined final_result (
+                    set "final_result=!final_result!+!tech_%%T!"
+                ) else (
+                    set "final_result=!tech_%%T!"
+                )
             )
-            set "choices=!choices!!char!"
         )
     )
+    goto process_loop
 )
 
-:check_tech_result
-if "!tech_result!"=="" (
-    echo Khong co lua chon hop le
-    goto input_tech
+if not defined final_result (
+    echo Lua chon khong hop le. Vui long thu lai.
+    timeout /t 2 >nul
+    goto menu
 )
 
+set "tech_result=!final_result!"
+
+:: Hien thi ket qua
+echo.
+echo Cac ky thuat duoc chon: !tech_result!
+echo.
 :input_price
 set /p "price=6. Gia tien: "
 if "!price!"=="" set "price=0"
@@ -112,6 +129,6 @@ echo !output!>>"\\ktv\ktv\serial\ghinhan.txt"
 
 echo.
 echo Hoan thanh ghi du lieu!
-pause
 echo.
+pause
 endlocal
