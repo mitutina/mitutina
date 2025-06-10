@@ -101,7 +101,7 @@ echo    Da chon: !serial_source! - Serial: !serial!
 
 :: Nhap ghi chu
 if defined note (set "note_prompt=[Hien tai: !note!]") else (set "note_prompt=")
-set /p "note=  6. Ghi chu !note_prompt!: "
+set /p "note=  6. Mo Ta Loi !note_prompt!: "
 if "!note!"=="" set "note=Khong co"
 
 :: Chon ky thuat
