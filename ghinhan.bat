@@ -83,7 +83,7 @@ for /f "delims=0123456789" %%i in ("!phone!") do (
 
 :: Chon nguon serial
 :input_serial
-echo   5. Chon nguon so series:
+echo   5. Nhap so Serial:
 echo      A. Lay so Series (tu BIOS)
 echo      B. SDT (so dien thoai)
 if defined serial (
@@ -99,10 +99,27 @@ if errorlevel 1 set "serial_source=A" & (
 :serial_selected
 echo    Da chon: !serial_source! - Serial: !serial!
 
-:: Nhap ghi chu
-if defined note (set "note_prompt=[Hien tai: !note!]") else (set "note_prompt=")
+:INPUT_NOTE
+:: Thiết lập note_prompt nếu đã có note trước đó
+if defined note (
+    set "note_prompt=[Hien tai: !note!]"
+) else (
+    set "note_prompt="
+)
+
+:: Yêu cầu nhập
 set /p "note=  6. Mo Ta Loi !note_prompt!: "
-if "!note!"=="" set "note=Khong co"
+
+:: Nếu để trống thì nhắc và quay lại
+if "!note!"=="" (
+    echo.
+    echo Ban chua nhap mo ta loi. Vui long nhap lai.
+    echo.
+    goto INPUT_NOTE
+)
+
+:: Xử lý tiếp khi da co note
+echo Da nhap mo ta loi: !note!
 
 :: Chon ky thuat
 :: Dinh nghia cac ky thuat xu ly
@@ -113,18 +130,18 @@ set "tech_D=win"
 set "tech_E=vs"
 set "tech_F=psu"
 
-:menu
+:menuu
 cls
 echo [3/7] CHON KY THUAT XU LY
 echo -------------------------
-echo  7. Chon mot hoac nhieu ky thuat (VD: ABE):
+echo  7. Chon mot hoac nhieu ky thuat (VD: A,ABE,acf,AdE,...):
 echo.
-echo    A. winfree     [Free Windows]
-echo    B. ram         [Thay RAM]
-echo    C. ssd         [Thay SSD]
-echo    D. win         [Cai Windows]
-echo    E. vs          [Dich vu Virus]
-echo    F. psu         [Thay nguon]
+echo    A. Xu ly Phan Mem Free     [Cai Free]
+echo    B. RAM                     [Thay RAM]
+echo    C. SSD                     [Thay SSD]
+echo    D. Xu ly Phan Mem 120k     
+echo    E. Ve Sinh May             [Dich vu Ve Sinh]
+echo    F. Psu                     [Thay nguon]
 echo.
 
 set "tech_result="
@@ -135,7 +152,7 @@ set /p "user_choice=Nhap lua chon cua ban va an Enter: "
 if not defined user_choice (
     echo Lua chon khong hop le. Vui long thu lai.
     timeout /t 2 >nul
-    goto menu
+    goto menuu
 )
 
 set "temp_choice=%user_choice%"
@@ -167,7 +184,7 @@ if not "!temp_choice!"=="" (
 if not defined final_result (
     echo Lua chon khong hop le. Vui long thu lai.
     timeout /t 2 >nul
-    goto menu
+    goto menuu
 )
 
 set "tech_result=!final_result!"
@@ -182,18 +199,56 @@ if defined price (set "price_prompt=[Hien tai: !price! VND]") else (set "price_p
 set /p "price=  8. Gia tien !price_prompt!: "
 if "!price!"=="" set "price=0"
 
-:: Thu thap thong tin may
-echo [4/7] Dang thu thap thong tin may tinh...
-for /f "delims=" %%a in ('powershell -Command "$cpu=(Get-CimInstance Win32_Processor).Name -replace '\s+','';$ram=[math]::Round((Get-CimInstance Win32_PhysicalMemory|Measure-Object Capacity -Sum).Sum/1GB);$gpu=(Get-CimInstance Win32_VideoController).Name|ForEach-Object{$_ -replace '\s+',''};$disk=(Get-CimInstance Win32_DiskDrive).Model|ForEach-Object{$_ -replace '\s+',''};$wifi=(Get-CimInstance Win32_NetworkAdapter|Where-Object{$_.NetEnabled -eq $true -and ($_.Name -match 'Wi-Fi|Wireless')}).Name -replace '\s+','';$out=$cpu + '_' + ${ram} + 'GB' + '_' + ($gpu -join '_') + '_' + ($disk -join '_') + '_' + $wifi;Write-Output $out" 2^>NUL') do set "thongtinmay=%%a"
-if "!thongtinmay!"=="" set "thongtinmay=UNKNOWN"
+:MENU
+cls
+echo.
+echo [4/7] Lay cau hinh may:
+:: LUA CHON CHE DO NHAP THONG TIN
+:NHAP_THONG_TIN_CHOICE
+echo.
+echo   [LUA CHON NHAP THONG TIN MAY]
+echo   A. Nhap cau hinh may AUTO (tu dong)
+echo   B. Nhap thu cong (Vd: Laptop Dell, Laptop Acer,...)
+echo.
+choice /c:AB /n /m "Nhap lua chon [A/B]: "
 
+if errorlevel 2 goto :NHAP_THU_CONG
+if errorlevel 1 goto :NHAP_TU_DONG
+
+:: CHE DO TU DONG
+:NHAP_TU_DONG
+echo [AUTO] Dang thu thap thong tin may tinh...
+set "thongtinmay=UNKNOWN"
+
+for /f "delims=" %%a in ('powershell -Command "$cpu=(Get-CimInstance Win32_Processor).Name -replace '\s+','';$ram=[math]::Round((Get-CimInstance Win32_PhysicalMemory|Measure-Object Capacity -Sum).Sum/1GB);$gpu=(Get-CimInstance Win32_VideoController).Name|ForEach-Object{$_ -replace '\s+',''};$disk=(Get-CimInstance Win32_DiskDrive).Model|ForEach-Object{$_ -replace '\s+',''};$wifi=(Get-CimInstance Win32_NetworkAdapter|Where-Object{$_.NetEnabled -eq $true -and ($_.Name -match 'Wi-Fi|Wireless')}).Name -replace '\s+','';$out=$cpu + '_' + ${ram} + 'GB' + '_' + ($gpu -join '_') + '_' + ($disk -join '_') + '_' + $wifi;Write-Output $out" 2^>NUL') do set "thongtinmay=%%a"
+
+goto :CONTINUE_SCRIPT
+
+:: CHE DO NHAP TAY
+:NHAP_THU_CONG
+echo.
+set /p "thongtinmay=[MANUAL] Nhap thong tin may : "
+if "!thongtinmay!"=="" (
+    echo Khong duoc de trong! Hay nhap lai
+    goto :NHAP_THU_CONG
+)
+
+:CONTINUE_SCRIPT
+echo Da luu thong tin: !thongtinmay!
+timeout /t 1
+powercfg /list | find "Battery" >nul
+if %errorlevel% == 0 (
+    set checkdevice=laptop
+) else (
+    set checkdevice=desktop
+)
 :: Hien thi xac nhan
 :confirmation
 cls
 echo [5/7] XAC NHAN THONG TIN
 echo =======================
-echo   1. User........: !user!
-echo   2. Password....: !passuser!
+echo   1. User.......: !user!
+echo   2. Password...: !passuser!
 echo   3. Ho ten.....: !fullname!
 echo   4. SDT........: !phone!
 echo   5. Serial.....: !serial!  [Nguon: !serial_source!]
@@ -201,6 +256,7 @@ echo   6. Ghi chu....: !note!
 echo   7. Ky thuat...: !tech_result!
 echo   8. Gia tien...: !price! VND
 echo   9. Thong tin..: !thongtinmay!
+echo   10. Loai may..: !checkdevice!
 echo.
 choice /c YN /n /m "   Ban co muon ghi thong tin? (Y/N): "
 if errorlevel 2 goto begin_input
@@ -209,7 +265,7 @@ if errorlevel 1 goto write_file
 :: Ghi du lieu
 :write_file
 echo [6/7] Dang ghi du lieu...
-set "output=!user!|!passuser!|!fullname!|!phone!|!serial!|!note!|!tech_result!|!price!|!thongtinmay!"
+set "output=!user!|!passuser!|!fullname!|!phone!|!serial!|!note!|!tech_result!|!price!|!thongtinmay!|!checkdevice!"
 >>"\\ktv\ktv\serial\ghinhan.txt" echo !output!
 echo   Ghi file thanh cong!
 timeout /t 2 >nul
