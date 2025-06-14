@@ -1,6 +1,10 @@
 @echo off
 setlocal enabledelayedexpansion
-
+cd /d "%~dp0" && ( if exist "%temp%\getadmin.vbs" del "%temp%\getadmin.vbs" ) && fsutil dirty query %systemdrive% 1>nul 2>nul || (
+    echo Set UAC = CreateObject^("Shell.Application"^) : UAC.ShellExecute "cmd.exe", "/k cd ""%~sdp0"" && %~s0 %*", "", "runas", 1 >> "%temp%\getadmin.vbs"
+    "%temp%\getadmin.vbs"
+    exit /B
+)
 :: Ket noi den o dia mang
 echo [1/9] Dang ket noi den \\ktv\ktv...
 net use \\ktv\ktv Thienngan2002 /user:minhtuan283 >nul 2>&1
@@ -217,7 +221,7 @@ if errorlevel 1 goto :NHAP_TU_DONG
 
 :: CHE DO TU DONG
 :NHAP_TU_DONG
-echo [AUTO] Dang thu thap thong tin may tinh...
+echo [AUTO] Dang kiem tra cau hinh...
 set "thongtinmay=UNKNOWN"
 
 for /f "delims=" %%a in ('powershell -Command "$cpu=(Get-CimInstance Win32_Processor).Name -replace '\s+','';$ram=[math]::Round((Get-CimInstance Win32_PhysicalMemory|Measure-Object Capacity -Sum).Sum/1GB);$gpu=(Get-CimInstance Win32_VideoController).Name|ForEach-Object{$_ -replace '\s+',''};$disk=(Get-CimInstance Win32_DiskDrive).Model|ForEach-Object{$_ -replace '\s+',''};$wifi=(Get-CimInstance Win32_NetworkAdapter|Where-Object{$_.NetEnabled -eq $true -and ($_.Name -match 'Wi-Fi|Wireless')}).Name -replace '\s+','';$out=$cpu + '_' + ${ram} + 'GB' + '_' + ($gpu -join '_') + '_' + ($disk -join '_') + '_' + $wifi;Write-Output $out" 2^>NUL') do set "thongtinmay=%%a"
@@ -236,12 +240,18 @@ if "!thongtinmay!"=="" (
 :CONTINUE_SCRIPT
 echo Da luu thong tin: !thongtinmay!
 timeout /t 1
-powercfg /list | find "Battery" >nul
-if %errorlevel% == 0 (
-    set checkdevice=laptop
-) else (
-    set checkdevice=desktop
+
+:: Khởi tạo giá trị mặc định
+set "checkdevice=desktop"
+
+:: Kiểm tra pin bằng PowerShell
+for /f "delims=" %%i in ('powershell -command "$battery = Get-WmiObject Win32_Battery -ErrorAction SilentlyContinue; if ($battery) { 'laptop' } else { 'desktop' }" 2^>nul') do (
+    set "checkdevice=%%i"
 )
+
+:: Hiển thị kết quả (có thể bỏ qua nếu chỉ cần biến)
+echo Thiet bi la: !checkdevice!
+
 :: Hien thi xac nhan
 :confirmation
 cls
