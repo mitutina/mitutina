@@ -27,6 +27,7 @@ if !errorlevel! neq 0 (
     goto :eof
 )
 echo [1/9] Ket noi thanh cong!
+echo AE NHAP TIENG VIET KHONG DAU !
 timeout /t 2 >nul
 cls
 
@@ -45,7 +46,7 @@ set "price="
 echo [2/7] THONG TIN KHACH HANG
 echo --------------------------
 if defined user (set "user_prompt=[Hien tai: !user!]") else (set "user_prompt=")
-set /p "user=  1. Nhap ID Eservice !user_prompt!: "
+set /p "user=  1. Nhap ten Dang Nhap Eservice (vd:tuan.thm) !user_prompt!: "
 if "!user!"=="" goto begin_input
 
 if defined passuser (set "pass_prompt=[Hien tai: !passuser!]") else (set "pass_prompt=")
