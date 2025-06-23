@@ -204,8 +204,7 @@ if errorlevel 1 goto :NHAP_TU_DONG
 echo [AUTO] Dang kiem tra cau hinh...
 set "thongtinmay=UNKNOWN"
 
-for /f "delims=" %%a in ('powershell -Command "$cpu=(Get-CimInstance Win32_Processor).Name -replace '\s+','';$ram=[math]::Round((Get-CimInstance Win32_PhysicalMemory|Measure-Object Capacity -Sum).Sum/1GB);$gpu=(Get-CimInstance Win32_VideoController).Name|ForEach-Object{$_ -replace '\s+',''};$disk=(Get-CimInstance Win32_DiskDrive).Model|ForEach-Object{$_ -replace '\s+',''};$wifi=(Get-CimInstance Win32_NetworkAdapter|Where-Object{$_.NetEnabled -eq $true -and ($_.Name -match 'Wi-Fi|Wireless')}).Name -replace '\s+','';$out=$cpu + '_' + ${ram} + 'GB' + '_' + ($gpu -join '_') + '_' + ($disk -join '_') + '_' + $wifi;Write-Output $out" 2^>NUL') do set "thongtinmay=%%a"
-
+for /f "delims=" %%a in ('powershell -Command "$model=(Get-CimInstance Win32_ComputerSystem).Model -replace '\s+','';$cpu=(Get-CimInstance Win32_Processor).Name -replace '\s+','';$ram=[math]::Round((Get-CimInstance Win32_PhysicalMemory|Measure-Object Capacity -Sum).Sum/1GB);$gpu=(Get-CimInstance Win32_VideoController).Name|ForEach-Object{$_ -replace '\s+',''};$disk=(Get-CimInstance Win32_DiskDrive).Model|ForEach-Object{$_ -replace '\s+',''};$wifi=(Get-CimInstance Win32_NetworkAdapter|Where-Object{$_.NetEnabled -eq $true -and ($_.Name -match 'Wi-Fi|Wireless')}).Name -replace '\s+','';$out=$model + '_' + $cpu + '_' + ${ram} + 'GB' + '_' + ($gpu -join '_') + '_' + ($disk -join '_') + '_' + $wifi;Write-Output $out" 2^>NUL') do set "thongtinmay=%%a"
 goto :CONTINUE_SCRIPT
 
 :: CHE DO NHAP TAY
@@ -324,13 +323,18 @@ timeout /t 1
 :: Khởi tạo giá trị mặc định
 set "checkdevice=desktop"
 
-:: Kiểm tra pin bằng PowerShell
-for /f "delims=" %%i in ('powershell -command "$battery = Get-WmiObject Win32_Battery -ErrorAction SilentlyContinue; if ($battery) { 'laptop' } else { 'desktop' }" 2^>nul') do (
+:: Lệnh PowerShell để kiểm tra Chassis Type.
+:: Các giá trị trong mảng @(...) là các mã định danh cho thiết bị di động (Laptop, Notebook, Portable, Tablet, etc.)
+:: Nếu truy vấn lỗi, nó sẽ trả về 'desktop' để đảm bảo an toàn.
+set "ps_command=try { $chassisType = (Get-CimInstance -ClassName Win32_SystemEnclosure).ChassisTypes[0]; if (@(8, 9, 10, 11, 12, 14, 30, 31, 32) -contains $chassisType) { 'laptop' } else { 'desktop' } } catch { 'desktop' }"
+
+:: Chạy lệnh PowerShell và gán kết quả cho biến
+for /f "delims=" %%i in ('powershell -NoProfile -ExecutionPolicy Bypass -Command "%ps_command%" 2^>nul') do (
     set "checkdevice=%%i"
 )
 
-:: Hiển thị kết quả (có thể bỏ qua nếu chỉ cần biến)
-echo Thiet bi la: !checkdevice!
+:: Hiển thị kết quả
+echo Thiet bi duoc nhan dien la: !checkdevice!
 
 :: Hien thi xac nhan
 :confirmation
