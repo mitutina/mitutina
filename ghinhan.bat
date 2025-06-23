@@ -39,7 +39,7 @@ set "price="
 
 :begin_input
 :: Nhap thong tin
-echo [2/7] DANG NHAP ESERVICE
+echo [2/7] DANG NHAP ESERVICE (ver3)
 echo --------------------------
 if defined user (set "user_prompt=[Hien tai: !user!]") else (set "user_prompt=")
 set /p "user=  1. Nhap ten Dang Nhap Eservice (vd:tuan.thm) !user_prompt!: "
