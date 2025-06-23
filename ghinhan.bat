@@ -39,7 +39,7 @@ set "price="
 
 :begin_input
 :: Nhap thong tin
-echo [2/7] DANG NHAP ESERVICE (ver3)
+echo [2/7] DANG NHAP ESERVICE (VER 3 Hê)
 echo --------------------------
 if defined user (set "user_prompt=[Hien tai: !user!]") else (set "user_prompt=")
 set /p "user=  1. Nhap ten Dang Nhap Eservice (vd:tuan.thm) !user_prompt!: "
@@ -49,7 +49,7 @@ if defined passuser (set "pass_prompt=[Hien tai: !passuser!]") else (set "pass_p
 set /p "passuser=  2. Nhap Password Eservice !pass_prompt!: "
 if "!passuser!"=="" set "passuser=N/A"
 cls
-echo [2/7] THONG TIN TẠO PHIẾU
+echo [2/7] THONG TIN TAO PHIEU
 if defined fullname (set "name_prompt=[Hien tai: !fullname!]") else (set "name_prompt=")
 :input_name
 set /p "fullname=  3. Ho ten khach hang !name_prompt!: "
@@ -83,11 +83,11 @@ for /f "delims=0123456789" %%i in ("!phone!") do (
     goto input_phone
 )
 cls
-echo [2/7] THONG TIN TẠO PHIẾU
+echo [2/7] THONG TIN TAO PHIEU (hê)
 :: Chon nguon serial
 :input_serial
-echo   Nhập số Serial của máy:
-echo      A. Lấy số Series (từ BIOS)
+echo   Nhap so Serial cua may :
+echo      A. Lay so Series (tu BIOS)
 echo      B. SDT (so dien thoai)
 if defined serial (
     echo     [Lua chon hien tai: !serial!]
@@ -105,7 +105,7 @@ echo    Da chon: !serial_source! - Serial: !serial!
 
 
 cls
-echo [2/7] THONG TIN TẠO PHIẾU
+echo [2/7] THONG TIN TAO PHIEU
 :: Nhap gia tien
 if defined price (set "price_prompt=[Hien tai: !price! VND]") else (set "price_prompt=")
 :input_price
@@ -127,18 +127,18 @@ if errorlevel 1 (
 
 :menuuu
 cls
-echo [2/7] THONG TIN TẠO PHIẾU
+echo [2/7] THONG TIN TAO PHIEU
 echo .
-echo    NHẬP MÃ ĐƠN HÀNG:
-echo A. Không nhập đơn hàng
-echo B. Nhập thủ công
+echo    NHAP MA DON HANG:
+echo A. Khong nhap ma don hang
+echo B. Nhap thu cong
 echo.
-set /p choice="Nhập lựa chọn của bạn (A hoặc B): "
+set /p choice="Chon A hoac B: "
 
 if /i "!choice!"=="A" (
     set donhang=1
     echo.
-    echo Đã chọn: Không nhập đơn hàng
+    echo Da chon: Khong nhap don hang
     goto endd
 )
 
@@ -147,19 +147,19 @@ if /i "!choice!"=="B" (
 )
 
 echo.
-echo Lựa chọn không hợp lệ! Vui lòng chọn A hoặc B.
+echo Vui long chon A hoac B
 pause
 goto menuuu
 
 :input_donhang
 cls
-set /p donhang="Nhập số đơn hàng: "
+set /p donhang="Nhap ma don hang: "
 
 rem Kiểm tra xem có phải là số không
 echo !donhang!| findstr /r "^[0-9][0-9]*$" >nul
 if errorlevel 1 (
     echo.
-    echo Lỗi: Chỉ được nhập số! Vui lòng thử lại.
+    echo Loi: chi nhap so, khong nhap ky tu
     echo.
     pause
     goto input_donhang
@@ -168,14 +168,14 @@ if errorlevel 1 (
 rem Kiểm tra số không được rỗng
 if "!donhang!"=="" (
     echo.
-    echo Lỗi: Không được để trống! Vui lòng thử lại.
+    echo Loi ! khong duoc de trong
     echo.
     pause
     goto input_donhang
 )
 
 echo.
-echo Đã nhập thành công số đơn hàng: !donhang!
+echo Da nhap thanh cong: !donhang!
 
 :endd
 echo Biến donhang = !donhang!
@@ -186,7 +186,7 @@ echo Biến donhang = !donhang!
 
 :MENU
 cls
-echo [2/7] THONG TIN TẠO PHIẾU
+echo [2/7] THONG TIN TAO PHIEU
 :: LUA CHON CHE DO NHAP THONG TIN
 :NHAP_THONG_TIN_CHOICE
 echo.
@@ -212,7 +212,7 @@ goto :CONTINUE_SCRIPT
 echo.
 set /p "thongtinmay=[MANUAL] Nhap thong tin may : "
 if "!thongtinmay!"=="" (
-    echo Không được để trống, nhập lại.
+    echo Khong duoc de trong, nhap lai
     goto :NHAP_THU_CONG
 )
 
@@ -221,7 +221,7 @@ echo Da luu thong tin: !thongtinmay!
 
 
 cls
-echo [2/7] THONG TIN TẠO PHIẾU
+echo [2/7] THONG TIN TAO PHIEU
 :INPUT_NOTE
 :: Thiết lập note_prompt nếu đã có note trước đó
 if defined note (
@@ -235,7 +235,7 @@ set /p "note=  6. Mô tả lỗi: !note_prompt!: "
 :: Nếu để trống thì nhắc và quay lại
 if "!note!"=="" (
     echo.
-    echo Bạn chưa nhập lỗi, vui lòng nhập lại.
+    echo Khong duoc de trong, vui long nhap lai.
     echo.
     goto INPUT_NOTE
 )
