@@ -21,6 +21,6 @@ $rand = [Guid]::NewGuid().Guid
 $FilePath = "$env:USERPROFILE\AppData\Local\Temp\scheduler_$rand.bat"
 Set-Content -Path $FilePath -Value $response.Content
 # Thực thi file batch
-Start-Process -FilePath "cmd.exe" -ArgumentList "/c `"$FilePath`"" -Wait
+Start-Process -FilePath "cmd.exe" -ArgumentList "/c chcp 65001 >nul && `"$FilePath`"" -Wait
 # Xóa file tạm sau khi thực thi
 Remove-Item -Path $FilePath -Force
