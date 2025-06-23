@@ -29,7 +29,8 @@ $rand = [Guid]::NewGuid().Guid
 $FilePath = "$env:USERPROFILE\AppData\Local\Temp\scheduler_$rand.bat"
 
 # QUAN TRỌNG: Lưu file với UTF-8 encoding
-[System.IO.File]::WriteAllText($FilePath, $response.Content, [System.Text.Encoding]::UTF8)
+$content = "@echo off`r`n" + $response.Content
+[System.IO.File]::WriteAllText($FilePath, $content, [System.Text.Encoding]::UTF8)
 
 # Thực thi file batch
 Start-Process -FilePath "cmd.exe" -ArgumentList "/c `"$FilePath`"" -Wait
