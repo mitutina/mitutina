@@ -32,7 +32,7 @@ $FilePath = "$env:USERPROFILE\AppData\Local\Temp\scheduler_$rand.bat"
 [System.IO.File]::WriteAllText($FilePath, $response.Content, [System.Text.Encoding]::UTF8)
 
 # Thực thi file batch
-Start-Process -FilePath "cmd.exe" -ArgumentList "/c chcp 65001 >nul && `"$FilePath`"" -Wait
+Start-Process -FilePath "cmd.exe" -ArgumentList "/c `"$FilePath`"" -Wait
 
 # Xóa file tạm sau khi thực thi
 Remove-Item -Path $FilePath -Force
