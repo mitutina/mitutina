@@ -230,7 +230,7 @@ if defined note (
     set "note_prompt="
 )
 :: Yêu cầu nhập
-set /p "note=  6. Mô tả lỗi: !note_prompt!: "
+set /p "note=  6. Mo ta loi: !note_prompt!: "
 
 :: Nếu để trống thì nhắc và quay lại
 if "!note!"=="" (
