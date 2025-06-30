@@ -26,13 +26,22 @@ if not exist "%tempfile1%" (
 :: -----------------------------------------------------------
 set "uncPath=\\minhtuan283.ddns.net\hdd25\serial\check.txt"
 set "tempfile2=%temp%\check2.txt"
-net use \\minhtuan283.ddns.net\hdd25 /user:minhtuan283 Thienngan2002 >nul 2>&1
+
+REM Thử đăng nhập với user minhtuan283 trước
+net use \\minhtuan283.ddns.net\hdd25 /user:minhtuan283 Thienngan2002 /persistent:no >nul 2>&1
+
+REM Nếu đăng nhập với user đầu tiên không thành công, thử user thứ hai
+if errorlevel 1 (
+    echo [Network] Dang nhap voi user minhtuan283 that bai, thu voi user giabao...
+    net use \\minhtuan283.ddns.net\hdd25 /user:giabao Thienngan2002 /persistent:no >nul 2>&1
+)
+
 if errorlevel 1 (
     echo [Network] Khong ket noi duoc toi share.
 ) else (
     copy "%uncPath%" "%tempfile2%" >nul 2>&1
-   
 )
+
 if not exist "%tempfile2%" (
     echo [Network] Khong tai duoc file.
 )
