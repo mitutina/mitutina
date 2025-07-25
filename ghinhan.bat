@@ -252,6 +252,7 @@ set "tech_C=ssd"
 set "tech_D=win"
 set "tech_E=vs"
 set "tech_F=psu"
+set "tech_G=pin"
 
 :menuu
 cls
@@ -265,6 +266,8 @@ echo    C. SSD                     [Thay SSD]
 echo    D. Xu ly Phan Mem 120k     
 echo    E. Ve Sinh May             [Dich vu Ve Sinh]
 echo    F. Psu                     [Thay nguon]
+echo    G. Thay pin Laptop         [Thay pin]
+
 echo.
 
 set "tech_result="
@@ -291,7 +294,7 @@ if not "!temp_choice!"=="" (
     echo "!processed_chars!" | find /i "!char!" >nul
     if errorlevel 1 (
         set "processed_chars=!processed_chars!!char!"
-        for %%T in (A B C D E F) do (
+        for %%T in (A B C D E F G) do (
             if /i "!char!"=="%%T" (
                 if defined final_result (
                     set "final_result=!final_result!+!tech_%%T!"
