@@ -337,6 +337,7 @@ for /f "delims=" %%i in ('powershell -NoProfile -ExecutionPolicy Bypass -Command
 :: Nếu kết quả là desktop thì hỏi lại user để xác nhận
 if /i "!checkdevice!"=="desktop" (
     :ASKUSER
+    cls
     echo Thiet bi cua ban la gi?
     echo A. Desktop
     echo B. Laptop
@@ -394,4 +395,5 @@ cls
 
 
 endlocal
+
 
