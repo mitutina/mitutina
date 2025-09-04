@@ -336,14 +336,19 @@ for /f "delims=" %%i in ('powershell -NoProfile -ExecutionPolicy Bypass -Command
 
 :: Nếu kết quả là desktop thì hỏi lại user để xác nhận
 if /i "!checkdevice!"=="desktop" (
+    :ASKUSER
     echo Thiet bi cua ban la gi?
     echo A. Desktop
     echo B. Laptop
     set /p "choice=Nhap lua chon (A/B): "
-    if /i "!choice!"=="B" (
+    
+    if /i "!choice!"=="A" (
+        set "checkdevice=desktop"
+    ) else if /i "!choice!"=="B" (
         set "checkdevice=laptop"
     ) else (
-        set "checkdevice=desktop"
+        echo Lua chon khong hop le. Vui long nhap lai.
+        goto ASKUSER
     )
 )
 
@@ -389,3 +394,4 @@ cls
 
 
 endlocal
+
