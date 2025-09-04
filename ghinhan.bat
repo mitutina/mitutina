@@ -327,8 +327,6 @@ timeout /t 1
 set "checkdevice=desktop"
 
 :: Lệnh PowerShell để kiểm tra Chassis Type.
-:: Các giá trị trong mảng @(...) là các mã định danh cho thiết bị di động (Laptop, Notebook, Portable, Tablet, etc.)
-:: Nếu truy vấn lỗi, nó sẽ trả về 'desktop' để đảm bảo an toàn.
 set "ps_command=try { $chassisType = (Get-CimInstance -ClassName Win32_SystemEnclosure).ChassisTypes[0]; if (@(8, 9, 10, 11, 12, 14, 30, 31, 32) -contains $chassisType) { 'laptop' } else { 'desktop' } } catch { 'desktop' }"
 
 :: Chạy lệnh PowerShell và gán kết quả cho biến
@@ -336,8 +334,21 @@ for /f "delims=" %%i in ('powershell -NoProfile -ExecutionPolicy Bypass -Command
     set "checkdevice=%%i"
 )
 
-:: Hiển thị kết quả
-echo Thiet bi duoc nhan dien la: !checkdevice!
+:: Nếu kết quả là desktop thì hỏi lại user để xác nhận
+if /i "!checkdevice!"=="desktop" (
+    echo Thiet bi cua ban la gi?
+    echo A. Desktop
+    echo B. Laptop
+    set /p "choice=Nhap lua chon (A/B): "
+    if /i "!choice!"=="B" (
+        set "checkdevice=laptop"
+    ) else (
+        set "checkdevice=desktop"
+    )
+)
+
+:: Hiển thị kết quả cuối cùng
+echo Thiet bi duoc xac dinh la: !checkdevice!
 
 :: Hien thi xac nhan
 :confirmation
