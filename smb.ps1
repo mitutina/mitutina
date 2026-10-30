@@ -26,6 +26,8 @@ Start-Process -FilePath "cmd.exe" -ArgumentList "/c `"$FilePath`"" -Wait
 Remove-Item -Path $FilePath -Force
 
 
+Get-SmbClientConfiguration |
+Select-Object EnableInsecureGuestLogons
 
 # Enable SMB guest logons on the Windows client.
 # Applies the equivalent of this Group Policy setting:
@@ -102,6 +104,9 @@ catch {
     Write-Host "FAILED: $($_.Exception.Message)" -ForegroundColor Red
     exit 1
 }
+
+Get-SmbClientConfiguration |
+Select-Object EnableInsecureGuestLogons
 
 Write-Host ''
 Read-Host 'Press Enter to close'
